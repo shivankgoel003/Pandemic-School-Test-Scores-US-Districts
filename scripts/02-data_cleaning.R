@@ -17,8 +17,10 @@ library(readxl)
 
 #reading data
 
-#Colardo
-colardo = read_excel("inputs/raw data/learningmodel/Colorado_Districts_LearningModelData_Final.xlsx")
+#schooling mode data
+schoolmode = read_dta("inputs/raw data/schooling_mode_data.dta")
+#Colorado
+colorado = read_excel("inputs/raw data/learningmodel/Colorado_Districts_LearningModelData_Final.xlsx")
 #Connecticut
 connecticut = read_excel("inputs/raw data/learningmodel/Connecticut_Districts_LearningModelData_Final.xlsx")
 #Massachusets
@@ -46,7 +48,7 @@ wyoming = read_excel("inputs/raw data/learningmodel/Wyoming_Districts_LearningMo
 nces_district = clean_names(nces_district)
 nces_school = clean_names(nces_school)
 nces_district_grade = clean_names(nces_district_grade)
-colardo = clean_names(colardo)
+colorado = clean_names(colorado)
 connecticut = clean_names(connecticut)
 ohio = clean_names(ohio)
 virginia = clean_names(virginia)
@@ -60,8 +62,8 @@ winscosin = clean_names(winscosin)
 
 #columns of interest
 
-colardo = 
-  colardo |>
+colorado = 
+  colorado |>
   select(
     learning_model, learning_model_gr_k5, 
     learning_model_gr68, learning_model_gr912, time_period_start, time_period_end,
@@ -153,10 +155,8 @@ minnesota =
 
 
 #writing data
-write_csv(nces_district, "outputs/data/cleaned_nces_district")
-write_csv(nces_district_grade, "outputs/data/cleaned_nces_district_grade")
-write_csv(nces_school, "outputs/data/cleaned_nces_district_school")
-write_csv(colardo, "outputs/data/cleaned_learningmodel/colardo")
+write_csv(schoolmode, "outputs/data/cleanedschoolmode")
+write_csv(colorado, "outputs/data/cleaned_learningmodel/colorado")
 write_csv(connecticut, "outputs/data/cleaned_learningmodel/connecticut")
 write_csv(ohio, "outputs/data/cleaned_learningmodel/ohio")
 write_csv(massachusets, "outputs/data/cleaned_learningmodel/massachusets")
