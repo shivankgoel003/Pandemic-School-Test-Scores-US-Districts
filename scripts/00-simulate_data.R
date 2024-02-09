@@ -14,5 +14,8 @@
 library(haven)
 library(tidyverse)
 
-# Reading in the learning model data for 11 U.S. States
+# Defining columns from data for simulation
+
+
+## Creating simulated data for learning model of each state
 

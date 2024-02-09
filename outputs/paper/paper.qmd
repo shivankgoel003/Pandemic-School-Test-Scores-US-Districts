@@ -18,8 +18,67 @@ bibliography: references.bib
 #| warning: false
 #| message: false
 
-library(tidyverse)
-library(palmerpenguins)
+library(tidyverse) # a collection of data-related packages
+library(knitr) # for kable
+library(kableExtra)
+library(here)
+library(ggbeeswarm)
+
+
+#reading cleaned data
+rhode = read_csv(
+  file = here("outputs/data/cleaned_learningmodel/rhode.csv"),       
+  show_col_types = FALSE
+)
+
+colorado = read_csv(
+  file = here("outputs/data/cleaned_learningmodel/colorado.csv"),       
+  show_col_types = FALSE
+)
+
+connecticut = read_csv(
+  file = here("outputs/data/cleaned_learningmodel/connecticut.csv"),       
+  show_col_types = FALSE
+)
+
+massachusets = read_csv(
+  file = here("outputs/data/cleaned_learningmodel/massachusets.csv"),       
+  show_col_types = FALSE
+)
+minnesota = read_csv(
+  file = here("outputs/data/cleaned_learningmodel/minnesota.csv"),       
+  show_col_types = FALSE
+)
+
+mississippi = read_csv(
+  file = here("outputs/data/cleaned_learningmodel/mississippi.csv"),       
+  show_col_types = FALSE
+)
+
+ohio = read_csv(
+  file = here("outputs/data/cleaned_learningmodel/ohio.csv"),       
+  show_col_types = FALSE
+)
+virginia = read_csv(
+  file = here("outputs/data/cleaned_learningmodel/virginia.csv"),       
+  show_col_types = FALSE
+)
+westvirginia = read_csv(
+  file = here("outputs/data/cleaned_learningmodel/westvirginia.csv"),       
+  show_col_types = FALSE
+)
+winscosin = read_csv(
+  file = here("outputs/data/cleaned_learningmodel/winscosin.csv"),       
+  show_col_types = FALSE
+)
+
+wyoming = read_csv(
+  file = here("outputs/data/cleaned_learningmodel/wyoming.csv"),       
+  show_col_types = FALSE
+)
+
+
+
 ```
 
 
@@ -46,13 +105,38 @@ Some of our data is of penguins (@fig-bills), from @palmerpenguins.
 #| fig-cap: Bills of penguins
 #| echo: false
 
-ggplot(penguins, aes(x = island, fill = species)) +
-  geom_bar(alpha = 0.8) +
-  scale_fill_manual(values = c("darkorange","purple","cyan4"),
-                    guide = "none") +
+library(dplyr)
+
+# Assuming each state data frame has the same structure and columns
+all_states <- bind_rows(
+  colorado %>% mutate(state = "Colarado"),
+  connecticut %>% mutate(state = "Connecticut"),
+  massachusets %>% mutate(state = "Massachusets"),
+  minnesota %>% mutate(state = "Minnesota"),
+  mississippi %>% mutate(state = "Mississsippi"),
+  ohio %>% mutate(state = "Ohio"),
+  rhode %>% mutate(state = "Rhode Islands"),
+  virginia %>% mutate(state = "Virginia"),
+  westvirginia %>% mutate(state = "West Virginia"),
+  winscosin %>% mutate(state = "Winscosin"),
+  wyoming %>% mutate(state = "Wyoming"),
+  
+)
+
+all_states$time_period_start <- as.Date(all_states$time_period_start, format = "%Y-%m-%d")
+all_states$learning_model <- as.factor(all_states$learning_model)
+
+library(ggplot2)
+
+ggplot(all_states, aes(x = time_period_start, y = learning_model, color = state)) +
+  geom_line() +
+  labs(title = "Comparison of Learning Models in US States Over Time",
+       x = "Time Period Start", y = "Learning Model") +
   theme_minimal() +
-  facet_wrap(~species, ncol = 1) +
-  coord_flip()
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+
 ```
 
 Talk more about it.

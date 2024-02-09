@@ -152,19 +152,98 @@ minnesota =
     enrollment_total,enrollment_in_person, enrollment_hybrid, enrollment_virtual,
     staff_count, staff_count_in_person)
 
+#removing repeated categories
+colorado <- colorado %>%
+  mutate(learning_model = case_when(
+    learning_model == "In-person" ~ "In-Person",
+    learning_model == "In-Person" ~ "In-Person",
+    TRUE ~ learning_model
+  ))
+connecticut <- connecticut %>%
+  mutate(learning_model = case_when(
+    learning_model == "In-person" ~ "In-Person",
+    learning_model == "In-Person" ~ "In-Person",
+    TRUE ~ learning_model
+  ))
+massachusets <- massachusets %>%
+  mutate(learning_model = case_when(
+    learning_model == "In-person" ~ "In-Person",
+    learning_model == "In-Person" ~ "In-Person",
+    TRUE ~ learning_model
+  ))
+minnesota <- minnesota %>%
+  mutate(learning_model = case_when(
+    learning_model == "In-person" ~ "In-Person",
+    learning_model == "In-Person" ~ "In-Person",
+    TRUE ~ learning_model
+  ))
+
+mississippi <- mississippi %>%
+  mutate(learning_model = case_when(
+    learning_model == "In-person" ~ "In-Person",
+    learning_model == "In-Person" ~ "In-Person",
+    TRUE ~ learning_model
+  ))
+
+
+ohio <- ohio %>%
+  mutate(learning_model = case_when(
+    learning_model == "In-person" ~ "In-Person",
+    learning_model == "In-Person" ~ "In-Person",
+    TRUE ~ learning_model
+  ))
+rhode <- rhode %>%
+  mutate(learning_model = case_when(
+    learning_model == "In-person" ~ "In-Person",
+    learning_model == "In-Person" ~ "In-Person",
+    TRUE ~ learning_model
+  ))
+virginia <- virginia %>%
+  mutate(learning_model = case_when(
+    learning_model == "In-person" ~ "In-Person",
+    learning_model == "In-Person" ~ "In-Person",
+    TRUE ~ learning_model
+  ))
+virginia <- virginia %>%
+  mutate(learning_model = case_when(
+    learning_model == "In-person" ~ "In-Person",
+    learning_model == "In-Person" ~ "In-Person",
+    TRUE ~ learning_model
+  ))
+
+westvirginia <- westvirginia %>%
+  mutate(learning_model = case_when(
+    learning_model == "In-person" ~ "In-Person",
+    learning_model == "In-Person" ~ "In-Person",
+    TRUE ~ learning_model
+  ))
+
+winscosin <- winscosin %>%
+  mutate(learning_model = case_when(
+    learning_model == "In-person" ~ "In-Person",
+    learning_model == "In-Person" ~ "In-Person",
+    TRUE ~ learning_model
+  ))
+wyoming <- wyoming %>%
+  mutate(learning_model = case_when(
+    learning_model == "In-person" ~ "In-Person",
+    learning_model == "In-Person" ~ "In-Person",
+    TRUE ~ learning_model
+  ))
+
 
 
 #writing data
-write_csv(schoolmode, "outputs/data/cleanedschoolmode")
-write_csv(colorado, "outputs/data/cleaned_learningmodel/colorado")
-write_csv(connecticut, "outputs/data/cleaned_learningmodel/connecticut")
-write_csv(ohio, "outputs/data/cleaned_learningmodel/ohio")
-write_csv(massachusets, "outputs/data/cleaned_learningmodel/massachusets")
-write_csv(mississippi, "outputs/data/cleaned_learningmodel/mississippi")
-write_csv(minnesota, "outputs/data/cleaned_learningmodel/minnesota")
-write_csv(rhode, "outputs/data/cleaned_learningmodel/rhode")
-write_csv(virginia, "outputs/data/cleaned_learningmodel/virginia")
-write_csv(westvirginia, "outputs/data/cleaned_learningmodel/westvirginia")
-write_csv(winscosin, "outputs/data/cleaned_learningmodel/winscosin")
-write_csv(wyoming, "outputs/data/cleaned_learningmodel/wyoming")
+write_csv(schoolmode, "outputs/data/cleanedschoolmode.csv")
+write_csv(colorado, "outputs/data/cleaned_learningmodel/colorado.csv")
+write_csv(connecticut, "outputs/data/cleaned_learningmodel/connecticut.csv")
+write_csv(ohio, "outputs/data/cleaned_learningmodel/ohio.csv")
+write_csv(massachusets, "outputs/data/cleaned_learningmodel/massachusets.csv")
+write_csv(mississippi, "outputs/data/cleaned_learningmodel/mississippi.csv")
+write_csv(minnesota, "outputs/data/cleaned_learningmodel/minnesota.csv")
+write_csv(rhode, "outputs/data/cleaned_learningmodel/rhode.csv")
+write_csv(virginia, "outputs/data/cleaned_learningmodel/virginia.csv")
+write_csv(westvirginia, "outputs/data/cleaned_learningmodel/westvirginia.csv")
+write_csv(winscosin, "outputs/data/cleaned_learningmodel/winscosin.csv")
+write_csv(wyoming, "outputs/data/cleaned_learningmodel/wyoming.csv")
 
