@@ -141,17 +141,48 @@ library(ggplot2)
 #   theme(axis.text.x = element_text(angle = 90, hjust = 1)) # Rotate x-axis labels if needed
 # 
 
-learning_model_summary <- all_states %>%
-  count(state, learning_model) %>%
-  ungroup()
+#tthis graph is correct, but causing scale bias, since data is large for some states like Minnesota has 21000 rows, but low for few states like Colorado which only has 1600 rows,
+# learning_model_summary <- all_states %>%
+#   count(state, learning_model) %>%
+#   ungroup()
+# 
+# # Plotting with a bar graph
+# ggplot(learning_model_summary, aes(x = state, y = n, fill = learning_model)) + 
+#   geom_bar(stat = "identity", position = "dodge") +
+#   theme_minimal() +
+#   labs(x = "State", y = "Frequency of Learning Model", fill = "Learning Model", 
+#        title = "Comparison of Learning Models in US States") +
+#   theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+#therefore we scale it first, by taking proportions:
+state_totals <- all_states %>%
+  group_by(state) %>%
+  summarise(total = n())
+
+# Calculate the proportion of each learning model within each state
+all_states <- all_states %>%
+  group_by(state, learning_model) %>%
+  summarise(count = n(), .groups = 'drop') %>%
+  left_join(state_totals, by = "state") %>%
+  mutate(proportion = count / total)
 
 # Plotting with a bar graph
-ggplot(learning_model_summary, aes(x = state, y = n, fill = learning_model)) + 
-  geom_bar(stat = "identity", position = "dodge") +
+# ggplot(all_states, aes(x = state, y = proportion, fill = learning_model)) + 
+#   geom_bar(stat = "identity", position = "dodge") +
+#   theme_minimal() +
+#   labs(x = "State", y = "Proportion", fill = "Learning Model", 
+#        title = "Proportional Comparison of Learning Models in US States") +
+  # scale_y_continuous(labels = scales::percent)
+
+ggplot(all_states, aes(x = state, y = proportion, fill = learning_model)) + 
+  geom_bar(stat = "identity", position = position_dodge(width = 0.9)) +
   theme_minimal() +
-  labs(x = "State", y = "Frequency of Learning Model", fill = "Learning Model", 
-       title = "Comparison of Learning Models in US States") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  labs(x = "State", y = "Proportion of Leaning Models", fill = "Learning Model", 
+       title = "Proportional Comparison of Learning Models in US States") +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1, size = 8),
+        plot.title = element_text(hjust = 0.5))
 
 ```
 
