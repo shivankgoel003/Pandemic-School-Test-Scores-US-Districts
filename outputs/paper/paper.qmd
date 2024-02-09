@@ -109,7 +109,7 @@ library(dplyr)
 
 # Assuming each state data frame has the same structure and columns
 all_states <- bind_rows(
-  colorado %>% mutate(state = "Colarado"),
+  colorado %>% mutate(state = "Colprado"),
   connecticut %>% mutate(state = "Connecticut"),
   massachusets %>% mutate(state = "Massachusets"),
   minnesota %>% mutate(state = "Minnesota"),
