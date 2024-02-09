@@ -128,14 +128,30 @@ all_states$learning_model <- as.factor(all_states$learning_model)
 
 library(ggplot2)
 
-ggplot(all_states, aes(x = time_period_start, y = learning_model, color = state)) +
-  geom_line() +
-  labs(title = "Comparison of Learning Models in US States Over Time",
-       x = "Time Period Start", y = "Learning Model") +
+# ggplot(all_states, aes(x = time_period_start, y = learning_model, color = state)) +
+#   geom_line() +
+#   labs(title = "Comparison of Learning Models in US States Over Time",
+#        x = "Time Period Start", y = "Learning Model") +
+#   theme_minimal() +
+#   theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# ggplot(all_states, aes(x = time_period_start, y = learning_model, group = state, color = state)) +
+#   geom_line() +
+#   scale_x_date(date_breaks = "1 month", date_labels = "%b %Y") +
+#   theme(axis.text.x = element_text(angle = 90, hjust = 1)) # Rotate x-axis labels if needed
+# 
+
+learning_model_summary <- all_states %>%
+  count(state, learning_model) %>%
+  ungroup()
+
+# Plotting with a bar graph
+ggplot(learning_model_summary, aes(x = state, y = n, fill = learning_model)) + 
+  geom_bar(stat = "identity", position = "dodge") +
   theme_minimal() +
+  labs(x = "State", y = "Frequency of Learning Model", fill = "Learning Model", 
+       title = "Comparison of Learning Models in US States") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
-
 
 ```
 
