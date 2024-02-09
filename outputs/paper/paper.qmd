@@ -25,7 +25,13 @@ library(palmerpenguins)
 
 # Introduction
 
-You can and should cross-reference sections and sub-sections. 
+The COVID-19 pandemic has profoundly disrupted education systems worldwide, compelling schools and districts across the United States to rapidly adapt their learning models. In 2020 and 2021, educational institutions faced unprecedented challenges, transitioning between in-person, hybrid, and virtual learning models in response to evolving public health guidelines and infection rates. This shift has brought into sharp focus the need to understand the implications of these various schooling models on educational outcomes.
+
+This paper delves into a comprehensive analysis across 11 U.S. states, examining the relationship between different schooling models and their impact on student enrollment and staffing patterns. The unique dataset compiled for this study encompasses a variety of metrics, including total enrollment, in-person and virtual attendance, as well as staff count across different learning models. By analyzing data from kindergarten to 12th grade, this study provides a granular view of how the pandemic has reshaped the educational landscape across these states.
+
+Our findings reveal significant variations in how states have navigated the challenges posed by the pandemic, with notable differences in the adoption of in-person, hybrid, and virtual learning models. We observe that these variations are not only reflective of public health policies but also indicate broader socio-economic and demographic influences. For instance, preliminary analysis suggests that shifts to virtual learning correlate with changes in student enrollment, raising questions about equity and access in education during these challenging times.
+
+The remainder of the paper is structured as follows: Section 2 provides a detailed overview of the data and methodology employed in this study. Section 3 presents an in-depth analysis of the schooling models across the 11 states, offering insights into the trends and patterns observed in the data. Section 4 discusses the key findings, exploring the implications of these schooling models on educational outcomes. Finally, Section 5 concludes with a reflection on the study's findings, limitations, and potential directions for future research in this critical area of educational policy.
 
 The remainder of this paper is structured as follows. @sec-data....
 
@@ -60,14 +66,7 @@ And also planes (@fig-planes). (You can change the height and width, but don't w
 #| warning: false
 #| message: false
 
-analysis_data <- read_csv(here::here("outputs/data/analysis_data.csv"))
 
-analysis_data |> 
-  ggplot(aes(x = width, y = length)) +
-  geom_point(alpha = 0.8) +
-  theme_minimal() +
-  labs(x = "Wing width (mm)",
-       y = "Wing length (mm)")
 ```
 
 Talk way more about it. 
@@ -107,33 +106,8 @@ We can use maths by including latex between dollar signs, for instance $\theta$.
 
 Our results are summarized in @tbl-modelresults.
 
-```{r}
-#| echo: false
-#| eval: true
-#| warning: false
-#| message: false
 
-library(rstanarm)
 
-first_model <-
-  readRDS(file = here::here("outputs/models/first_model.rds"))
-```
-
-```{r}
-#| echo: false
-#| eval: true
-#| label: tbl-modelresults
-#| tbl-cap: "Explanatory models of flight time based on wing width and wing length"
-#| warning: false
-
-modelsummary::modelsummary(
-  list(
-    "First model" = first_model
-  ),
-  statistic = "mad",
-  fmt = 2
-)
-```
 
 
 
@@ -168,48 +142,6 @@ Weaknesses and next steps should also be included.
 In @fig-ppcheckandposteriorvsprior-1 we implement a posterior predictive check. This shows...
 
 In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. This shows... 
-
-```{r}
-#| eval: true
-#| echo: false
-#| message: false
-#| warning: false
-#| label: fig-ppcheckandposteriorvsprior
-#| layout-ncol: 2
-#| fig-cap: "Examining how the model fits, and is affected by, the data"
-#| fig-subcap: ["Posterior prediction check", "Comparing the posterior with the prior"]
-
-pp_check(first_model) +
-  theme_classic() +
-  theme(legend.position = "bottom")
-
-posterior_vs_prior(first_model) +
-  theme_minimal() +
-  scale_color_brewer(palette = "Set1") +
-  theme(legend.position = "bottom") +
-  coord_flip()
-```
-
-## Diagnostics
-
-@fig-stanareyouokay-1 is a trace plot. It shows... This suggests...
-
-@fig-stanareyouokay-2 is a Rhat plot. It shows... This suggests...
-
-```{r}
-#| echo: false
-#| eval: true
-#| message: false
-#| warning: false
-#| label: fig-stanareyouokay
-#| fig-cap: "Checking the convergence of the MCMC algorithm"
-#| fig-subcap: ["Trace plot", "Rhat plot"]
-#| layout-ncol: 2
-
-plot(first_model, "trace")
-
-plot(first_model, "rhat")
-```
 
 
 
