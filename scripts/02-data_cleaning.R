@@ -1,11 +1,9 @@
 #### Preamble ####
-# Purpose: Cleans the raw plane data recorded by two observers..... [...UPDATE THIS...]
-# Author: Navya h
-# Date: 6 April 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: Cleans the raw data for learning model and test scores for 11 US states
+# Author: Navya Hooda, Shivank Goel, Vanshika Vanshika
+# Date: 07 February 2024
+# Contact: shivankg.goel@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
 
 #### Workspace setup ####
 library(tidyverse)
@@ -16,7 +14,7 @@ library(dplyr)
 library(readxl)
 
 #reading data
-
+statescoredata = read_dta("inputs/raw data/state_score_data.dta")
 #schooling mode data
 schoolmode = read_dta("inputs/raw data/schooling_mode_data.dta")
 #Colorado
@@ -42,12 +40,14 @@ winscosin = read_excel("inputs/raw data/learningmodel/Wisconsin_Schools_Learning
 #Wyoming
 wyoming = read_excel("inputs/raw data/learningmodel/Wyoming_Districts_LearningModelData_Final.xlsx")
 
+
+
+
 #cleaning
 
+
 # Simplified names
-nces_district = clean_names(nces_district)
-nces_school = clean_names(nces_school)
-nces_district_grade = clean_names(nces_district_grade)
+statescoredata = clean_names(statescoredata)
 colorado = clean_names(colorado)
 connecticut = clean_names(connecticut)
 ohio = clean_names(ohio)
@@ -61,6 +61,9 @@ massachusets = clean_names(massachusets)
 winscosin = clean_names(winscosin)
 
 #columns of interest
+
+statescoredata =  statescoredata |>
+  select(state, year, share_inperson, share_virtual, share_hybrid, participation, pass)
 
 colorado = 
   colorado |>
@@ -234,6 +237,7 @@ wyoming <- wyoming %>%
 
 
 #writing data
+write_csv(statescoredata, "outputs/data/cleaned_state_scoredata.scv")
 write_csv(schoolmode, "outputs/data/cleanedschoolmode.csv")
 write_csv(colorado, "outputs/data/cleaned_learningmodel/colorado.csv")
 write_csv(connecticut, "outputs/data/cleaned_learningmodel/connecticut.csv")
