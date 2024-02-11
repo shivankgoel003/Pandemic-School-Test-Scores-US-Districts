@@ -13,7 +13,7 @@ library(readxl)
 library(dplyr)
 library(readxl)
 
-#reading data
+#reading data:
 statescoredata = read_dta("inputs/raw data/state_score_data.dta")
 #schooling mode data
 schoolmode = read_dta("inputs/raw data/schooling_mode_data.dta")

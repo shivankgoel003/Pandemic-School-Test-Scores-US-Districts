@@ -236,7 +236,7 @@ We can use maths by including latex between dollar signs, for instance $\theta$.
 # Results
 
 Our results are summarized in @tbl-modelresults.
-
+The table
 
 
 
@@ -265,6 +265,7 @@ Weaknesses and next steps should also be included.
 
 
 # Additional data details
+
 
 # Model details {#sec-model-details}
 
