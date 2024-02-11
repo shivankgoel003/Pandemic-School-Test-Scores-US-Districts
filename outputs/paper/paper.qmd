@@ -26,6 +26,13 @@ library(ggbeeswarm)
 
 
 #reading cleaned data
+
+state_score = read_csv(file = here("outputs/data/cleaned_state_scoredata.csv"),       
+  show_col_types = FALSE
+)
+
+head(state_score)
+
 rhode = read_csv(
   file = here("outputs/data/cleaned_learningmodel/rhode.csv"),       
   show_col_types = FALSE
@@ -186,7 +193,7 @@ ggplot(all_states, aes(x = state, y = proportion, fill = learning_model)) +
 
 ```
 
-Talk more about it.
+Talk more about it., SURE
 
 And also planes (@fig-planes). (You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work well once you have enough text.)
 
@@ -197,6 +204,37 @@ And also planes (@fig-planes). (You can change the height and width, but don't w
 #| warning: false
 #| message: false
 
+data_2019 <- state_score %>% 
+  filter(year == 2019) %>%
+  group_by(state) %>%
+  summarise(
+    avg_share_inperson = mean(share_inperson, na.rm = TRUE),
+    avg_share_virtual = mean(share_virtual, na.rm = TRUE),
+    avg_share_hybrid = mean(share_hybrid, na.rm = TRUE),
+    avg_participation = mean(participation, na.rm = TRUE),
+    avg_pass_rate = mean(pass, na.rm = TRUE)
+  )
+
+data_2021 <- state_score %>% 
+  filter(year == 2021) %>%
+  group_by(state) %>%
+  summarise(
+    avg_share_inperson = mean(share_inperson, na.rm = TRUE),
+    avg_share_virtual = mean(share_virtual, na.rm = TRUE),
+    avg_share_hybrid = mean(share_hybrid, na.rm = TRUE),
+    avg_participation = mean(participation, na.rm = TRUE),
+    avg_pass_rate = mean(pass, na.rm = TRUE)
+  )
+
+# Format the tables using kable and kableExtra
+kable_2019 <- data_2019 %>%
+  kable(format = "latex", booktabs = TRUE) %>%
+  kable_styling(latex_options = c("striped", "scale_down"))
+
+
+
+# Print the kable formatted tables
+print(kable_2019)
 
 ```
 
