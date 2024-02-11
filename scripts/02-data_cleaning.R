@@ -62,9 +62,6 @@ winscosin = clean_names(winscosin)
 
 #columns of interest
 
-statescoredata =  statescoredata |>
-  select(state, year, share_inperson, share_virtual, share_hybrid, participation, pass)
-
 colorado = 
   colorado |>
   select(
