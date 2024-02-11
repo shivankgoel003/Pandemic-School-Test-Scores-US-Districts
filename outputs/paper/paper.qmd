@@ -274,7 +274,6 @@ We can use maths by including latex between dollar signs,  instance $\theta$.
 # Results
 
 Our results are summarized in @tbl-modelresults.
-The table
 
 
 
