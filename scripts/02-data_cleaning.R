@@ -13,7 +13,7 @@ library(readxl)
 library(dplyr)
 library(readxl)
 
-#reading data:
+#reading data 
 statescoredata = read_dta("inputs/raw data/state_score_data.dta")
 #schooling mode data
 schoolmode = read_dta("inputs/raw data/schooling_mode_data.dta")
@@ -237,7 +237,8 @@ wyoming <- wyoming %>%
 
 
 #writing data
-write_csv(statescoredata, "outputs/data/cleaned_state_scoredata.scv")
+
+write_csv(statescoredata, "outputs/data/cleaned_state_scoredata.csv")
 write_csv(schoolmode, "outputs/data/cleanedschoolmode.csv")
 write_csv(colorado, "outputs/data/cleaned_learningmodel/colorado.csv")
 write_csv(connecticut, "outputs/data/cleaned_learningmodel/connecticut.csv")
