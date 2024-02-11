@@ -77,11 +77,310 @@ wyoming = read_csv(
   show_col_types = FALSE
 )
 
-
+scores = read_csv(
+  file = here("outputs/data/all_scoredata.csv"),       
+  show_col_types = FALSE
+)
+scores_2019 = read_csv(
+  file = here("outputs/data/score_ohio.csv"),       
+  show_col_types = FALSE
+)
 
 ```
 
+```{r}
+#| label: Vanshika-graphs
+#| fig-cap: lets see
+#| echo: false
+# Plotting passing rates for each state
+ggplot(scores, aes(x = state, y = pass, fill = state)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Passing Rates Across Different States",
+       x = "State",
+       y = "Passing Rate") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+# graph of all the passing rate all the different states 
 
+
+# Calculate the difference between passing rates
+pass_diff <- scores$pass - mean(scores$pass)
+
+# Plotting
+ggplot(scores, aes(x = state, y = pass_diff, fill = state)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Difference in Passing Rates Between States",
+       x = "State",
+       y = "Difference in Passing Rates") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+
+# The lowest passing rates were Rhode Island
+
+# graph for rode island and its unemployemnt during covid
+# Plotting passing rates for each state
+rhode_island_data <- subset(scores, state == "RI")
+ggplot(scores, aes(x = state , y = unemployment, fill = state)) +
+  geom_bar(stat = "identity") +
+  labs(title = "unemployment Across Different States",
+       x = "State",
+       y = "Unemployemtn Rate") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+# graph of all the passing rate all the different states 
+
+ggplot(scores, aes(x = state , y = cts_pass_advanced, fill = state)) +
+  geom_bar(stat = "identity") +
+  labs(title = "advanced Passing Rates Across Different States",
+       x = "State",
+       y = "Passing Rate") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+
+ggplot(scores, aes(x = state , y = cts_pass_proficient, fill = state)) +
+  geom_bar(stat = "identity") +
+  labs(title = "profient Passing Rates Across Different States",
+       x = "State",
+       y = "Passing Rate") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+ggplot(scores, aes(x = state , y = cts_pass_approaching, fill = state)) +
+  geom_bar(stat = "identity") +
+  labs(title = "approaching Passing Rates Across Different States",
+       x = "State",
+       y = "Passing Rate") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+ggplot(scores, aes(x = state , y = cts_pass_partially, fill = state)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Partially Passing Rates Across Different States",
+       x = "State",
+       y = "Passing Rate") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+ggplot(scores, aes(x = state , y = cts_pass_below, fill = state)) +
+  geom_bar(stat = "identity") +
+  labs(title = "below Passing Rates Across Different States",
+       x = "State",
+       y = "Passing Rate") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+
+# DATA WITH ONLY 2019
+ggplot(scores_2019, aes(x = state, y = pass, fill = state)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Passing Rates In 2019",
+       x = "State",
+       y = "Passing Rate") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+```{r}
+#| label: Vanshika-RI
+#| fig-cap: lets see
+#| echo: false
+library(reshape2)
+# Select relevant columns for correlation analysis
+correlation_data <- scores[, c("pass", "participation", "share_black", "share_white", "share_hisp", "share_lunch", "unemployment")]
+
+# Calculate correlation matrix
+correlation_matrix <- cor(correlation_data, use="complete.obs")
+
+# Convert the correlation matrix to a data frame
+correlation_df <- melt(correlation_matrix)
+
+# Plotting the correlation heatmap
+correlation_heatmap <- ggplot(correlation_df, aes(Var1, Var2, fill=value)) +
+  geom_tile(color="white") +
+  scale_fill_gradient2(low="blue", mid="white", high="red", midpoint=0, limit=c(-1,1), space="Lab", name="Correlation") +
+  theme_minimal() +
+  labs(title = "Correlation Analysis: Heatmap of Correlation Coefficients",
+       x = "Variables",
+       y = "Variables") +
+   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+# Display the heatmap
+correlation_heatmap
+
+
+
+# Select relevant columns for correlation analysis
+correlation_data <- scores[, c("share_inperson", "share_virtual", "share_hybrid", "pass", "participation", "share_black", "share_white", "share_hisp", "unemployment")]
+
+# Calculate correlation matrix
+correlation_matrix <- cor(correlation_data, use="complete.obs")
+
+# Convert the correlation matrix to a data frame
+correlation_df <- melt(correlation_matrix)
+
+# Plotting the correlation heatmap with vertical x-axis labels
+correlation_heatmap <- ggplot(correlation_df, aes(Var1, Var2, fill=value)) +
+  geom_tile(color="white") +
+  scale_fill_gradient2(low="blue", mid="white", high="red", midpoint=0, limit=c(-1,1), space="Lab", name="Correlation") +
+  theme_minimal() +
+  labs(title = "Correlation Analysis: Heatmap of Correlation Coefficients",
+       x = "Variables",
+       y = "Variables") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+# Display the heatmap
+correlation_heatmap
+
+
+
+# Select relevant columns for correlation analysis
+correlation_data <- scores %>%
+  select(state, participation, share_inperson)
+
+# Calculate correlation matrix by grouping data by state and then calculating correlations
+correlation_matrix <- correlation_data %>%
+  group_by(state) %>%
+  summarise(correlation = cor(participation, share_inperson))
+
+# Plotting the correlation graph
+correlation_graph <- ggplot(correlation_matrix, aes(x = state, y = correlation)) +
+  geom_bar(stat = "identity", fill = "skyblue", width = 0.5) +
+  labs(title = "Correlation between Participation Rate and Share In Person by State",
+       x = "State",
+       y = "Correlation") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Display the correlation graph
+correlation_graph
+
+
+# coorelation between virtual and participation
+# Select relevant columns for correlation analysis
+correlation_data <- scores %>%
+  select(state, participation, share_virtual)
+
+# Calculate correlation matrix by grouping data by state and then calculating correlations
+correlation_matrix <- correlation_data %>%
+  group_by(state) %>%
+  summarise(correlation = cor(participation, share_virtual))
+
+# Plotting the correlation graph
+correlation_graph <- ggplot(correlation_matrix, aes(x = state, y = correlation)) +
+  geom_bar(stat = "identity", fill = "skyblue", width = 0.5) +
+  labs(title = "Correlation between Participation Rate and Share virtual by State",
+       x = "State",
+       y = "Correlation") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Display the correlation graph
+correlation_graph
+
+
+# corelation between pass and unemployemnt 
+# Select relevant columns for correlation analysis
+correlation_data <- scores %>%
+  select(state, unemployment, pass)
+
+# Calculate correlation matrix by grouping data by state and then calculating correlations
+correlation_matrix <- correlation_data %>%
+  group_by(state) %>%
+  summarise(correlation = cor(unemployment, pass))
+
+# Plotting the correlation graph
+correlation_graph <- ggplot(correlation_matrix, aes(x = state, y = correlation)) +
+  geom_bar(stat = "identity", fill = "purple", width = 0.5) +
+  labs(title = "Correlation between Unemployement Rate and passing rate by State",
+       x = "State",
+       y = "Correlation") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Display the correlation graph
+correlation_graph
+```
+
+```{r}
+#| label: Random Graphs
+#| fig-cap: lets see
+#| echo: false
+
+library(ggplot2)
+
+# Passing rate trends over different years and subjects
+passing_rate_trends <- ggplot(scores, aes(x = year, y = pass, color = subject)) +
+  geom_line() +
+  labs(title = "Passing Rate Trends Over Different Years and Subjects",
+       x = "Year",
+       y = "Passing Rate",
+       color = "Subject") +
+  theme_minimal()
+
+# Variations between different districts or states
+passing_rate_variations <- ggplot(scores, aes(x = state, y = pass, fill = state)) +
+  geom_boxplot() +
+  labs(title = "Variations in Passing Rates Between Different States",
+       x = "State",
+       y = "Passing Rate") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Display the graphs
+passing_rate_trends
+passing_rate_variations
+
+
+
+
+# Investigating participation rates across districts or states
+participation_rates <- ggplot(scores, aes(x = state, y = participation, fill = state)) +
+  geom_boxplot() +
+  labs(title = "Participation Rates Across Different States",
+       x = "State",
+       y = "Participation Rate") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Display the graph
+participation_rates
+
+
+
+# Relationship between demographic factors and passing rates
+demographic_analysis <- ggplot(scores, aes(x = share_black, y = pass)) +
+  geom_point() +
+  labs(title = "Relationship Between Percentage of Black Students and Passing Rate",
+       x = "Percentage of Black Students",
+       y = "Passing Rate") +
+  theme_minimal()
+
+# Display the graph
+demographic_analysis
+
+
+
+
+
+# Comparing passing rates between different subjects
+subject_comparison <- ggplot(scores, aes(x = subject, y = pass, fill = subject)) +
+  geom_boxplot() +
+  labs(title = "Passing Rates Comparison Between Different Subjects",
+       x = "Subject",
+       y = "Passing Rate") +
+  theme_minimal()
+
+# Display the graph
+subject_comparison
+
+```
 # Introduction
 
 The COVID-19 pandemic has profoundly disrupted education systems worldwide, compelling schools and districts across the United States to rapidly adapt their learning models. In 2020 and 2021, educational institutions faced unprecedented challenges, transitioning between in-person, hybrid, and virtual learning models in response to evolving public health guidelines and infection rates. This shift has brought into sharp focus the need to understand the implications of these various schooling models on educational outcomes.

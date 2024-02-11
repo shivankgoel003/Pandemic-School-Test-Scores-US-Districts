@@ -48,6 +48,7 @@ wyoming = read_excel("inputs/raw data/learningmodel/Wyoming_Districts_LearningMo
 
 # Simplified names
 statescoredata = clean_names(statescoredata)
+statescoredata1 = clean_names(statescoredata)
 colorado = clean_names(colorado)
 connecticut = clean_names(connecticut)
 ohio = clean_names(ohio)
@@ -64,6 +65,14 @@ winscosin = clean_names(winscosin)
 
 statescoredata =  statescoredata |>
   select(state, year, share_inperson, share_virtual, share_hybrid, participation, pass)
+statescoredata_ohio = statescoredata1 |>
+  select(state, year, share_inperson, share_virtual, share_hybrid, participation,
+         pass, cts_pass_below, cts_pass_proficient, cts_pass_advanced, unemployment) |>
+  filter(year == "2019")
+
+statescoredata_3 = statescoredata1 |>
+   filter(year == "2019" & state == "RI" )
+
 
 colorado = 
   colorado |>
@@ -237,7 +246,7 @@ wyoming <- wyoming %>%
 
 
 #writing data
-write_csv(statescoredata, "outputs/data/cleaned_state_scoredata.scv")
+write_csv(statescoredata, "outputs/data/cleaned_state_scoredata.csv")
 write_csv(schoolmode, "outputs/data/cleanedschoolmode.csv")
 write_csv(colorado, "outputs/data/cleaned_learningmodel/colorado.csv")
 write_csv(connecticut, "outputs/data/cleaned_learningmodel/connecticut.csv")
@@ -251,3 +260,6 @@ write_csv(westvirginia, "outputs/data/cleaned_learningmodel/westvirginia.csv")
 write_csv(winscosin, "outputs/data/cleaned_learningmodel/winscosin.csv")
 write_csv(wyoming, "outputs/data/cleaned_learningmodel/wyoming.csv")
 
+write_csv(statescoredata1, "outputs/data/all_scoredata.csv")
+write_csv(statescoredata_ohio, "outputs/data/score_ohio.csv")
+write_csv(statescoredata_3, "outputs/data/score_plain.csv")
