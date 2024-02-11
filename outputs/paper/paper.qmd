@@ -268,7 +268,7 @@ We run the model in R [@citeR] using the `rstanarm` package of @rstanarm. We use
 
 We expect a positive relationship between the size of the wings and time spent aloft. In particular...
 
-We can use maths by including latex between dollar signs, for instance $\theta$.
+We can use maths by including latex between dollar signs,  instance $\theta$.
 
 
 # Results
