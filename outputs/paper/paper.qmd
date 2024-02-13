@@ -107,9 +107,9 @@ The remainder of this paper is structured as follows. @sec-data....
 ## Data Source and Collection
 
 The data utilized in this study is obtained from the compilation of district-level schooling models and state standardized assessment data, originally featured in the paper "Pandemic Schooling Mode and Student Test Scores: Evidence from US School Districts" [@citepaper] published in the American Economic Review: Insights in June 2023. [@citewebsite]. The primary dataset encompasses schooling mode data from the 2020–2021 academic year across 11 U.S. states, integrating various educational approaches during the pandemic, including in-person, hybrid, and virtual learning environments. These datasets were sourced from COVID-19 School Data Hub [@citedata], district-level state standardized assessment data from spring
-2016–2019 and 2021, and additional data demographic statistics from the National Center for Education Statistics (NCES) to establish a comprehensive analytical framework.
+2016–2019 and 2021, and additional data demographic statistics from the National Center for Education Statistics (NCES) to establish a comprehensive analytical framework. We also used additional year 2020 household data by Household Pulse Survey [@citehousehold] from  U.S. Census Bureau spanning weeks 1 to 12.
 
-Our analyses incorporate three categories of data: district-level schooling modes, state standardized assessment results from the academic years 2016–2019 and 2021, and auxiliary datasets that encompass district demographics and county-level variables. The following subsections detail the sources, collection methodologies, and data cleaning procedures undertaken to ensure the accuracy and reliability of the datasets for our analysis.
+Our analyses incorporate three categories of data: district-level schooling modes, state standardized assessment results from the academic years 2016–2019 and 2021, and auxiliary  that encompass district demographics and county-level variables. The following subsections detail the sources, collection methodologies, and data cleaning procedures undertaken to ensure the accuracy and reliability of the datasets for our analysis.  
 
 **State Score Data**: This dataset encompasses state-level academic performance statistics from 2016 to 2020. Variables include the proportion of in-person, virtual, and hybrid learning, participation rates, standardized test pass rates, COVID-19 case rates per 100,000 in school zip codes, peak monthly cases, total enrollment figures, and political voting shares by district.
 
@@ -143,6 +143,7 @@ head(state_score, 6) |>
 #| label: fig-bills
 #| fig-cap: Bills of penguins
 #| echo: false
+#| warning: false
 
 library(dplyr)
 
@@ -243,10 +244,9 @@ ggplot(state_score, aes(x = pass)) +
 
 
 ```
+## Data Modifications
 
-Talk more about it., SURE
-
-And also planes (@fig-planes). (You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work well once you have enough text.)
+In this study, we developed a unique dataset by carefully selecting and combining data from the Household Pulse Survey, available from the U.S. Census Bureau for weeks 1 to 12. This process involved choosing key variables that were crucial for our research. We aimed to analyze the connection between economic changes, particularly the loss of employment income, and their impact on educational outcomes, focusing specifically on school passing rates. This helped us to understand the relationship between these economic factors and educational performance. To ensure consistency, we standardized terminologies and measurements, and aligned variables such as timeframes and demographic categories across the datasets. For example, we combined the state score data with the weekly household data, aligned variables relevant to our study. The merged data file was thereafter saved as a CSV file to study the trends later on.
 
 ```{r}
 #| label: fig-planes
