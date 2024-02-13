@@ -248,8 +248,18 @@ ggplot(state_score, aes(x = pass)) +
 
 In this study, we developed a unique dataset by carefully selecting and combining data from the Household Pulse Survey, available from the U.S. Census Bureau for weeks 1 to 12. This process involved choosing key variables that were crucial for our research. We aimed to analyze the connection between economic changes, particularly the loss of employment income, and their impact on educational outcomes, focusing specifically on school passing rates. This helped us to understand the relationship between these economic factors and educational performance. To ensure consistency, we standardized terminologies and measurements, and aligned variables such as timeframes and demographic categories across the datasets. For example, we combined the state score data with the weekly household data, aligned variables relevant to our study. The merged data file was thereafter saved as a CSV file to study the trends later on.
 
+
+# Results
+In the Results section of our study, we first visualized the distribution of learning models across states using box plots. The box plot for in-person learning [@box_plot_inperson] revealed a range of engagement across states, with Virginia showing a median of 0 percentage in-person learning during 2019 to 2021, whereas Wyoming having a median of approximately 80 percent in-person learning. The virtual learning model box plot [@box_plot_virtual] showed a significant number of outliers, suggesting that certain states had districts with a notably high share of virtual learning.The states Wyoming and Rhode Island had a median of 0 percent virtual learning whereas Virginia had highest median of virtual learning.  Lastly, the hybrid learning model [@box_plot_hybrid] box plot displayed variability, with some states having a wide interquartile range, showing a diverse adoption of this learning model. However, Colorado had a median of 0 percent adoption of hybrid learning model relative to other states. These visual insights set the foundation for further statistical examination in subsequent analyses. 
+
+Following the initial box plots, we continued our investigation with a scatter plot [@scatterplot] and examined the relationship between the share of virtual learning and student passing rates. The scatter plot indicates a downward trend, with a line suggesting that an increase in the share of virtual learning correlates with a decrease in passing rates. The data points suggest that higher virtual learning is associated with lower academic performance of students.
+
+After the initial analysis of learning model, we further studied the impact of Covid-19 on student's learning. We again plotted box plots [@covidboxplot] to observe the relationship between COVID-19 case rates per 100,000 and passing rates. COVID-19 case rates per 100,000 were categorized into 'Low,' 'Medium,' and 'High' based on the data's quartile distribution. It is revealed from the plot that districts with 'Low' COVID-19 case rates showed a median passing rates near the 50th percentile, while those categorized as 'High' showed a decline in median passing rates. 
+
+We further expanded our analysis to examine the relationship between the average number of students per staff and the average pass rate for virtual learners across the 11 states [@fig]. Due to insufficient data, Rhode Island (RI) and Mississippi (MS) were not graphed. The graph plots both these variables and shows an overall positive correlation between the number of students per staff on average vs the average pass rate. The trend indicates that the states with the higher pass rates also had more students assigned to a teacher. We note that Virginia (VA) had the highest student-to-staff ratio, while Wyoming (WY) had the lowest. While this may be not expected of a general learning environment, the virtual learning model may be a factor contributing to this positive relationship between the student-to-staff ratio and the average pass rates across the states. 
+
 ```{r}
-#| label: fig-planes
+#| label: box_plot_inperson
 #| fig-cap: Relationship between wing length and width
 #| echo: false
 #| warning: false
@@ -415,8 +425,6 @@ ggplot(state_passing_data_lowest, aes(x = as.factor(year), y = pass, group = sta
 
 
 ```
-
-Talk way more about it. 
 
 
 
