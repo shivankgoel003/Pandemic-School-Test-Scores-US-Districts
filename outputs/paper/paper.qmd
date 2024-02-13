@@ -23,6 +23,7 @@ library(knitr) # for kable
 library(kableExtra)
 library(here)
 library(ggbeeswarm)
+library(ggplot2)
 
 
 #reading cleaned data
@@ -84,8 +85,6 @@ wyoming = read_csv(
   show_col_types = FALSE
 )
 
-
-
 ```
 
 
@@ -105,7 +104,40 @@ The remainder of this paper is structured as follows. @sec-data....
 
 # Data {#sec-data}
 
-Some of our data is of penguins (@fig-bills), from @palmerpenguins.
+## Data Source and Collection
+
+The data utilized in this study is obtained from the compilation of district-level schooling models and state standardized assessment data, originally featured in the paper "Pandemic Schooling Mode and Student Test Scores: Evidence from US School Districts" [@citepaper] published in the American Economic Review: Insights in June 2023. [@citewebsite]. The primary dataset encompasses schooling mode data from the 2020–2021 academic year across 11 U.S. states, integrating various educational approaches during the pandemic, including in-person, hybrid, and virtual learning environments. These datasets were sourced from COVID-19 School Data Hub [@citedata], district-level state standardized assessment data from spring
+2016–2019 and 2021, and additional data demographic statistics from the National Center for Education Statistics (NCES) to establish a comprehensive analytical framework.
+
+Our analyses incorporate three categories of data: district-level schooling modes, state standardized assessment results from the academic years 2016–2019 and 2021, and auxiliary datasets that encompass district demographics and county-level variables. The following subsections detail the sources, collection methodologies, and data cleaning procedures undertaken to ensure the accuracy and reliability of the datasets for our analysis.
+
+**State Score Data**: This dataset encompasses state-level academic performance statistics from 2016 to 2020. Variables include the proportion of in-person, virtual, and hybrid learning, participation rates, standardized test pass rates, COVID-19 case rates per 100,000 in school zip codes, peak monthly cases, total enrollment figures, and political voting shares by district.
+
+**Learning Model Data**: This dataset details the learning models adopted by school districts in Colorado, Connecticut, Ohio, Virginia, West Virginia, Wyoming, Mississippi, Rhode Island, Minnesota, Massachusetts, and Wisconsin. Each state's data outlines the specific learning model (in-person, virtual, hybrid) employed over time, enrollment figures, and staffing counts.
+
+## Data Cleaning and Processing
+We used R [@citeR] for data cleaning and processing, utilizing packages like tidyverse [@tidyverse] for data manipulation and janitor [@citejan] for cleaning column names. The cleaning process involved standardizing learning model categories, selecting columns of interest, and simplifying data for analysis. We integrated data from different states, and made sure that variations in reporting and measurement were addressed while combining them into one. For instance, some states categorized their schooling mode as "In-person," while others used "In-Person." To ensure they are equivalent, we standardized these terms. We also conducted a check for missing data values, and imputed or excluded them as appropriate based on the context. The variables were also renamed for clarity and consistency across different states' datasets.  A sample of cleaned state score data can be seen in [@tbl_cleaned_data].
+
+```{r tbl_cleaned_data}
+#| message: false
+#| echo: false
+#| warning: false
+#| tbl-cap: Sample of Cleaned State Score Data
+#| label: tbl_cleaned_data
+
+library(kableExtra)
+library(knitr)
+
+options(kableExtra.latex.max.width=1)
+head(state_score, 6) |>
+  kable(
+        col.names = c("State", "Year", "Share In-person", "Share Virtual", "Share Hybrid", "Participation", "Pass Rate", "Covid cases rate per 100k", "Total Enrollment"),
+    booktabs = TRUE,
+    longtable = FALSE
+  ) %>%
+  kable_styling(latex_options = c("striped", "scale_down"), font_size = 6)
+```
+
 
 ```{r}
 #| label: fig-bills
@@ -130,37 +162,7 @@ all_states <- bind_rows(
   
 )
 
-all_states$time_period_start <- as.Date(all_states$time_period_start, format = "%Y-%m-%d")
-all_states$learning_model <- as.factor(all_states$learning_model)
-
-library(ggplot2)
-
-# ggplot(all_states, aes(x = time_period_start, y = learning_model, color = state)) +
-#   geom_line() +
-#   labs(title = "Comparison of Learning Models in US States Over Time",
-#        x = "Time Period Start", y = "Learning Model") +
-#   theme_minimal() +
-#   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
-# ggplot(all_states, aes(x = time_period_start, y = learning_model, group = state, color = state)) +
-#   geom_line() +
-#   scale_x_date(date_breaks = "1 month", date_labels = "%b %Y") +
-#   theme(axis.text.x = element_text(angle = 90, hjust = 1)) # Rotate x-axis labels if needed
-# 
-
-#tthis graph is correct, but causing scale bias, since data is large for some states like Minnesota has 21000 rows, but low for few states like Colorado which only has 1600 rows,
-# learning_model_summary <- all_states %>%
-#   count(state, learning_model) %>%
-#   ungroup()
-# 
-# # Plotting with a bar graph
-# ggplot(learning_model_summary, aes(x = state, y = n, fill = learning_model)) + 
-#   geom_bar(stat = "identity", position = "dodge") +
-#   theme_minimal() +
-#   labs(x = "State", y = "Frequency of Learning Model", fill = "Learning Model", 
-#        title = "Comparison of Learning Models in US States") +
-#   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
+state_score <- na.omit(state_score)
 
 #therefore we scale it first, by taking proportions:
 state_totals <- all_states %>%
@@ -191,6 +193,55 @@ ggplot(all_states, aes(x = state, y = proportion, fill = learning_model)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1, size = 8),
         plot.title = element_text(hjust = 0.5))
 
+ggplot(state_score, aes(x = case_rate_per100k_zip, y = pass)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "COVID-19 Case Rate per 100k", y = "Passing Rate", 
+       title = "Correlation between Passing Rate and COVID-19 Case Rate per 100k") +
+  theme_minimal() +
+  xlim(0, 350)
+
+
+ggplot(state_score, aes(x = case_rate_per100k_zip, y = pass)) +
+  geom_point() +  # Add points
+  geom_smooth(method = "lm", se = FALSE) +  # Add a linear regression line without standard error bands
+  labs(x = "COVID-19 Case Rate per 100k", y = "Passing Rate", 
+       title = "Correlation between Passing Rate and COVID-19 Case Rate per 100k") +
+  theme_minimal()
+# Print the results of the correlation test
+
+
+
+
+# Create a box plot
+state_score <- state_score %>% 
+  filter(!is.na(case_rate_per100k_zip) & !is.nan(case_rate_per100k_zip))
+
+state_score$category <- cut(state_score$case_rate_per100k_zip, 
+                            breaks = quantile(state_score$case_rate_per100k_zip, 
+                                              probs = 0:3/3, na.rm = TRUE), 
+                            include.lowest = TRUE, 
+                            labels = c("Low", "Medium", "High"))
+
+# Create a box plot with colors
+ggplot(state_score, aes(x = category, y = pass, fill = category)) +
+  geom_boxplot() +
+  labs(title = "Box Plot of Passing Rates by COVID-19 Case Rate Categories", 
+       x = "COVID-19 Case Rate Category", 
+       y = "Passing Rate") +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Pastel1") 
+
+
+
+
+
+ggplot(state_score, aes(x = pass)) +
+  geom_density(fill = "blue", alpha = 0.5) +
+  labs(title = "Density Plot of Passing Rates", x = "Passing Rate", y = "Density") +
+  theme_minimal()
+
+
 ```
 
 Talk more about it., SURE
@@ -204,37 +255,164 @@ And also planes (@fig-planes). (You can change the height and width, but don't w
 #| warning: false
 #| message: false
 
-data_2019 <- state_score %>% 
+library(dplyr)
+
+
+
+data_2019 <- state_score %>%
   filter(year == 2019) %>%
   group_by(state) %>%
   summarise(
-    avg_share_inperson = mean(share_inperson, na.rm = TRUE),
-    avg_share_virtual = mean(share_virtual, na.rm = TRUE),
-    avg_share_hybrid = mean(share_hybrid, na.rm = TRUE),
+    avg_share_inperson = mean(share_inperson, na.rm = TRUE)*100,
+    avg_share_virtual = mean(share_virtual, na.rm = TRUE)*100,
+    avg_share_hybrid = mean(share_hybrid, na.rm = TRUE)*100,
     avg_participation = mean(participation, na.rm = TRUE),
-    avg_pass_rate = mean(pass, na.rm = TRUE)
+    avg_pass_rate = mean(pass, na.rm = TRUE)*100
   )
 
-data_2021 <- state_score %>% 
+data_2021 <- state_score %>%
   filter(year == 2021) %>%
   group_by(state) %>%
   summarise(
-    avg_share_inperson = mean(share_inperson, na.rm = TRUE),
-    avg_share_virtual = mean(share_virtual, na.rm = TRUE),
-    avg_share_hybrid = mean(share_hybrid, na.rm = TRUE),
+    avg_share_inperson = mean(share_inperson, na.rm = TRUE)*100,
+    avg_share_virtual = mean(share_virtual, na.rm = TRUE)*100,
+    avg_share_hybrid = mean(share_hybrid, na.rm = TRUE)*100,
     avg_participation = mean(participation, na.rm = TRUE),
-    avg_pass_rate = mean(pass, na.rm = TRUE)
+    avg_pass_rate = mean(pass, na.rm = TRUE)*100
   )
 
-# Format the tables using kable and kableExtra
-kable_2019 <- data_2019 %>%
-  kable(format = "latex", booktabs = TRUE) %>%
-  kable_styling(latex_options = c("striped", "scale_down"))
+
+options(kableExtra.latex.max.width = 1)
+data_2019 %>% 
+  kable(format = "markdown", 
+        col.names = c("State", "Avg. Share In-person", "Avg. Share Virtual", "Avg. Share Hybrid", "Avg. Participation", "Avg. Pass Rate"),
+        booktabs = TRUE,
+        longtable = FALSE
+  ) %>%
+  kable_styling(latex_options = c("striped", "scale_down"), font_size = 9)
+
+options(kableExtra.latex.max.width = 1)
+data_2021 %>% 
+  kable(format = "markdown", 
+        col.names = c("State", "Avg. Share In-person", "Avg. Share Virtual", "Avg. Share Hybrid", "Avg. Participation", "Avg. Pass Rate"),
+        booktabs = TRUE,
+        longtable = FALSE
+  ) %>%
+  kable_styling(latex_options = c("striped", "scale_down"), font_size = 9)
 
 
 
-# Print the kable formatted tables
-print(kable_2019)
+
+inperson_data <- state_score %>%
+  select(state, share_inperson)
+
+# Step 2: Plot the data
+ggplot(inperson_data, aes(x = state, y = share_inperson)) +
+  geom_boxplot() +
+  theme_minimal() +
+  labs(title = "Box Plot of In-Person Learning Model Share Across States",
+       x = "State", y = "Share of In-Person Learning") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+virtual_data <- state_score %>%
+  select(state, share_virtual)
+
+# Plot for virtual learning model
+ggplot(virtual_data, aes(x = state, y = share_virtual)) +
+  geom_boxplot() +
+  theme_minimal() +
+  labs(title = "Box Plot of Virtual Learning Model Share Across States",
+       x = "State", y = "Share of Virtual Learning") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Prepare data for hybrid learning model
+hybrid_data <- state_score %>%
+  select(state, share_hybrid)
+
+# Plot for hybrid learning model
+ggplot(hybrid_data, aes(x = state, y = share_hybrid)) +
+  geom_boxplot() +
+  theme_minimal() +
+  labs(title = "Box Plot of Hybrid Learning Model Share Across States",
+       x = "State", y = "Share of Hybrid Learning") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+ggplot(state_score, aes(x = share_virtual, y = pass)) +
+  geom_point() +  # Add points to the plot
+  geom_smooth(method = "lm", se = FALSE) +  # Add a linear trend line without the shaded confidence interval
+  theme_minimal() +
+  labs(title = "Scatter Plot of Virtual Learning Share vs. Passing Rate",
+       x = "Share of Virtual Learning", y = "Passing Rate") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+
+state_with_highest_virtual <- state_score %>%
+  group_by(state) %>%
+  summarize(average_virtual = mean(share_virtual, na.rm = TRUE)) %>%
+  arrange(desc(average_virtual)) %>%
+  slice(1) %>%
+  pull(state)
+
+# Filter the data for the state with the highest virtual learning
+state_passing_data <- state_score %>%
+  filter(state == state_with_highest_virtual)
+
+# Plot the passing rates against the case rate per 100k for the state with the highest virtual learning
+ggplot(state_passing_data, aes(x = case_rate_per100k_zip, y = pass)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +  # Add a linear trend line
+  theme_minimal() +
+  labs(title = paste("Passing Rate vs. Case Rate per 100k in", state_with_highest_virtual),
+       x = "Case Rate per 100k", y = "Passing Rate") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+
+
+state_with_highest_cases <- state_score %>%
+  group_by(state) %>%
+  summarize(average_cases = mean(case_rate_per100k_zip, na.rm = TRUE)) %>%
+  arrange(desc(average_cases)) %>%
+  slice(1) %>%
+  pull(state)
+
+# Filter the data for the state with the highest case rate per 100k
+state_passing_data <- state_score %>%
+  filter(state == state_with_highest_cases)
+
+# Plot the passing rates for the state with the highest case rate per 100k
+ggplot(state_passing_data, aes(x = as.factor(year), y = pass, group = state, color = state)) +
+  geom_line() +
+  geom_point() +
+  theme_minimal() +
+  labs(title = paste("Passing Rate in", state_with_highest_cases, "with the Highest COVID-19 Case Rate"),
+       x = "Year", y = "Passing Rate") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+# Find the state with the lowest case rate per 100k
+state_with_lowest_cases <- state_score %>%
+  group_by(state) %>%
+  summarize(average_cases = mean(case_rate_per100k_zip, na.rm = TRUE)) %>%
+  arrange(average_cases) %>%
+  slice(1) %>%
+  pull(state)
+
+# Filter the data for the state with the lowest case rate per 100k
+state_passing_data_lowest <- state_score %>%
+  filter(state == state_with_lowest_cases)
+
+# Plot the passing rates for the state with the lowest case rate per 100k
+ggplot(state_passing_data_lowest, aes(x = as.factor(year), y = pass, group = state, color = state)) +
+  geom_line() +
+  geom_point() +
+  theme_minimal() +
+  labs(title = paste("Passing Rate in", state_with_lowest_cases, "with the Lowest COVID-19 Case Rate"),
+       x = "Year", y = "Passing Rate") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
 
 ```
 
@@ -311,6 +489,8 @@ Weaknesses and next steps should also be included.
 In @fig-ppcheckandposteriorvsprior-1 we implement a posterior predictive check. This shows...
 
 In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. This shows... 
+
+
 
 
 

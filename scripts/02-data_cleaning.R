@@ -42,7 +42,6 @@ wyoming = read_excel("inputs/raw data/learningmodel/Wyoming_Districts_LearningMo
 
 
 
-
 #cleaning
 
 
@@ -60,7 +59,11 @@ minnesota = clean_names(minnesota)
 massachusets = clean_names(massachusets)
 winscosin = clean_names(winscosin)
 
+
 #columns of interest
+statescoredata =  statescoredata |>
+  select(state, year, share_inperson, share_virtual, share_hybrid, participation, pass,
+         case_rate_per100k_zip,enrollment_total)
 
 colorado = 
   colorado |>
