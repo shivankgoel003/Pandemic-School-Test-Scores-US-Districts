@@ -85,6 +85,8 @@ scores_2019 = read_csv(
   file = here("outputs/data/score_ohio.csv"),       
   show_col_types = FALSE
 )
+merged_data = read_csv(file = here("outputs/data/merged_data_by_state.csv"), show_col_types = FALSE)
+
 
 ```
 
@@ -381,6 +383,10 @@ subject_comparison <- ggplot(scores, aes(x = subject, y = pass, fill = subject))
 subject_comparison
 
 ```
+
+
+
+
 # Introduction
 
 The COVID-19 pandemic has profoundly disrupted education systems worldwide, compelling schools and districts across the United States to rapidly adapt their learning models. In 2020 and 2021, educational institutions faced unprecedented challenges, transitioning between in-person, hybrid, and virtual learning models in response to evolving public health guidelines and infection rates. This shift has brought into sharp focus the need to understand the implications of these various schooling models on educational outcomes.
@@ -484,6 +490,44 @@ ggplot(all_states, aes(x = state, y = proportion, fill = learning_model)) +
         plot.title = element_text(hjust = 0.5))
 
 ```
+
+```{r}
+#| label: Navya
+#| fig-cap: Relationship between teacher and pass rates
+#| echo: false
+#| warning: false
+#| message: false
+# Define colors for each state
+state_colors <- rainbow(length(unique(merged_data$state)))
+
+# Create a scatter plot with colored points
+plot(merged_data$average_students_per_teacher, merged_data$average_pass, 
+     xlab = "Average Students per Teacher", ylab = "Average Pass Rates",
+     main = "Relationship Between Average Students per Teacher and Average Pass Rates",
+     col = state_colors[as.factor(merged_data$state)], pch = 19)
+
+# Add labels for each point
+text(merged_data$average_students_per_teacher, merged_data$average_pass, labels = merged_data$state, pos = 3, cex = 0.8)
+
+# Fit a linear regression model
+lm_model <- lm(average_pass ~ average_students_per_teacher, data = merged_data)
+
+# Add a trend line
+abline(lm_model, col = "red")
+
+# Add a legend
+legend("bottomright", legend = unique(merged_data$state), col = state_colors, pch = 19, cex = 0.8, title = "State")
+
+
+```
+
+
+
+
+
+
+
+
 
 Talk more about it.
 

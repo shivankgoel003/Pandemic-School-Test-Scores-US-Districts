@@ -245,7 +245,143 @@ wyoming <- wyoming %>%
 
 
 
-#writing data
+# Assuming your data frame 
+print("Original Data:")
+print(cleaned_state_scoredata)
+
+filtered_data <- cleaned_state_scoredata %>%
+  filter(state == "OH", year == 2021) %>%
+  {print("Filtered Data:"); print(.); .}
+
+# Check for NA values in the pass column
+if (any(is.na(filtered_data$pass))) {
+  print("Warning: Rows with NA pass values found. Removing them.")
+}
+
+# Remove rows with NA pass values
+filtered_data <- filtered_data %>%
+  filter(!is.na(pass))
+
+print("Filtered Data after removing NA pass values:")
+print(filtered_data)
+
+result <- filtered_data %>%
+  summarise(average_pass = mean(pass)) 
+
+print("Result:")
+print(result)
+
+
+
+
+# Filter the data for the year 2021 and group by states to get average pass rates 
+
+filtered_data <- cleaned_state_scoredata %>%
+  filter(year == 2021)
+
+# Group the filtered data by state and calculate the average pass value for each state
+avg_pass_by_state <- filtered_data %>%
+  group_by(state) %>%
+  summarise(average_pass = mean(pass, na.rm = TRUE)*100)
+
+# Save the results to a new file 
+head(avg_pass_by_state)
+write_csv(avg_pass_by_state, "outputs/data/averages_by_state.csv") 
+
+
+# filter staff count info for each state and summarize
+
+# Initialize an empty data frame to store aggregated results
+aggregated_data <- data.frame(state = character(), average_staff_count = numeric(), stringsAsFactors = FALSE)
+
+# Loop through each state file
+states <- c("outputs/data/cleaned_learningmodel/ohio.csv", "outputs/data/cleaned_learningmodel/colorado.csv", "outputs/data/cleaned_learningmodel/connecticut.csv", "outputs/data/cleaned_learningmodel/minnesota.csv", "outputs/data/cleaned_learningmodel/mississippi.csv", "outputs/data/cleaned_learningmodel/rhode.csv", "outputs/data/cleaned_learningmodel/massachusets.csv", "outputs/data/cleaned_learningmodel/virginia.csv", "outputs/data/cleaned_learningmodel/westvirginia.csv", "outputs/data/cleaned_learningmodel/winscosin.csv", "outputs/data/cleaned_learningmodel/wyoming.csv")  # Replace with your actual file names
+for (state_file in states) {
+  # Read data for the current state
+  data <- read.csv(state_file)
+  
+  # Filter the data for the year 2021 based on the "time_period_end" column
+  filtered_data <- data %>%
+    filter(substr(time_period_end, 1, 4) == "2021")
+  
+  # Calculate the average "staff count" for the filtered data
+  average_staff_count <- mean(filtered_data$staff_count, na.rm = TRUE)
+  
+  # Extract state name from file name (assuming the file name format is "stateX.csv")
+  state_name <- gsub(".csv", "", state_file)
+  
+  # Append state name and average staff count to the aggregated data frame
+  aggregated_data <- rbind(aggregated_data, data.frame(state = state_name, average_staff_count = average_staff_count))
+}
+
+library(dplyr)
+library(readr)
+
+# Function to clean and process data for each state
+clean_and_process_state_data <- function(state_file) {
+  # Read data for the current state
+  data <- read_csv(state_file)
+  
+  # Filter the data for the year 2021 based on the "time_period_end" column
+  filtered_data <- data %>%
+    filter(substr(time_period_end, 1, 4) == "2021")
+  
+  # Filter the data for learning model values of 'virtual'
+  filtered_data <- filtered_data %>%
+    filter(learning_model == "Virtual")
+  
+  # Calculate students per teacher for each observation
+  filtered_data$students_per_teacher <- filtered_data$enrollment_total / filtered_data$staff_count
+  
+  # Calculate the average students per teacher for the state
+  average_students_per_teacher <- mean(filtered_data$students_per_teacher, na.rm = TRUE)
+  
+  # Extract state abbreviation from file name (assuming the file name format is "stateX.csv")
+  state_abbr <- gsub(".csv", "", basename(state_file))
+  
+  # Return state abbreviation and average students per teacher for the state
+  return(data.frame(state = state_abbr, average_students_per_teacher = average_students_per_teacher))
+}
+
+# Initialize an empty data frame to store results for all states
+results <- data.frame(state = character(), average_students_per_teacher = numeric(), stringsAsFactors = FALSE)
+
+# Loop through each state file
+states <- c("outputs/data/cleaned_learningmodel/ohio.csv", "outputs/data/cleaned_learningmodel/colorado.csv", "outputs/data/cleaned_learningmodel/connecticut.csv", "outputs/data/cleaned_learningmodel/minnesota.csv", "outputs/data/cleaned_learningmodel/mississippi.csv", "outputs/data/cleaned_learningmodel/rhode.csv", "outputs/data/cleaned_learningmodel/massachusets.csv", "outputs/data/cleaned_learningmodel/virginia.csv", "outputs/data/cleaned_learningmodel/westvirginia.csv", "outputs/data/cleaned_learningmodel/winscosin.csv", "outputs/data/cleaned_learningmodel/wyoming.csv")  # Replace with your actual file names
+for (state_file in states) {
+  # Clean and process data for the current state
+  state_result <- clean_and_process_state_data(state_file)
+  
+  # Append results for the current state to the overall results data frame
+  results <- rbind(results, state_result)
+}
+
+# Read state abbreviations from a file or define them manually
+state_abbreviations <- c("OH", "CO", "CT", "MN", "MS", "RI", "MA", "VA", "WV", "WI", "WY")
+
+# Replace file paths with state abbreviations
+results$state <- state_abbreviations
+
+# Write the results to a CSV file
+write_csv(results, "outputs/data/average_students_per_teacher_by_state.csv")
+
+# merged data for teacher ratio to pass rate 
+# Read the data from the two files
+avg_pass_by_state <- read.csv("outputs/data/averages_by_state.csv")
+avg_students_per_teacher_by_state <- read.csv("outputs/data/average_students_per_teacher_by_state.csv")
+
+# Merge the two data frames by the common state ID
+merged_data <- merge(avg_pass_by_state, avg_students_per_teacher_by_state, by = "state")
+
+# Write the merged data to a CSV file
+write.csv(merged_data, "outputs/data/merged_data_by_state.csv", row.names = FALSE)
+
+
+
+
+# Write the results to a CSV file
+write_csv(results, "outputs/data/average_students_per_teacher_by_state.csv") 
+
 write_csv(statescoredata, "outputs/data/cleaned_state_scoredata.csv")
 write_csv(schoolmode, "outputs/data/cleanedschoolmode.csv")
 write_csv(colorado, "outputs/data/cleaned_learningmodel/colorado.csv")
