@@ -200,16 +200,20 @@ ggplot(state_score, aes(x = case_rate_per100k_zip, y = pass)) +
   labs(x = "COVID-19 Case Rate per 100k", y = "Passing Rate", 
        title = "Correlation between Passing Rate and COVID-19 Case Rate per 100k") +
   theme_minimal() +
-  xlim(0, 350)
+  xlim(0,100)
 
 
-ggplot(state_score, aes(x = case_rate_per100k_zip, y = pass)) +
-  geom_point() +  # Add points
-  geom_smooth(method = "lm", se = FALSE) +  # Add a linear regression line without standard error bands
-  labs(x = "COVID-19 Case Rate per 100k", y = "Passing Rate", 
-       title = "Correlation between Passing Rate and COVID-19 Case Rate per 100k") +
+
+filtered_data <- state_score %>%
+  filter(year %in% c(2019, 2021))
+
+# Now create the scatter plot with the filtered data
+ggplot(filtered_data, aes(x = case_rate_per100k_zip, fill = as.factor(year))) +
+  geom_density(alpha = 0.5) +  # Adjust transparency with alpha
+  labs(x = "COVID-19 Case Rate per 100k", y = "Density",
+       title = "Density Plot of COVID-19 Case Rates per 100k (2019 vs 2021)",
+       fill = "Year") +
   theme_minimal()
-# Print the results of the correlation test
 
 
 
@@ -252,17 +256,22 @@ In this study, we created a new dataset by carefully selecting and combining dat
 # Results
 In the Results section of our study, our analysis discusses two key geographical representations:
 
-1. Passing Rate Trends Over Different Years and Subjects: Figue [@fig] shows the decline in passing rates in English Language Arts (ELA) and Mathematics from 2016 to 2021, depicting a consistent downward trend across both subjects especially during pandemic period from 2019 to 2021.
+1. Passing Rate Trends Over Different Years and Subjects: Figure [@fig] shows the decline in passing rates in English Language Arts (ELA) and Mathematics from 2016 to 2021, depicting a consistent downward trend across both subjects especially during pandemic period from 2019 to 2021.
 
 2. Variations in Passing Rates Between Different States: The box plot comparison [@fig2] across states showcases the wide range of passing rates, with some states showing a wide spread, which indicates the  variability in performance within those states.
 
-Building on these overviews, we visualized the distribution of learning models across states using box plots. The box plot for in-person learning [@box_plot_inperson] revealed a range of engagement across states, with Virginia showing a median of 0 percentage in-person learning during 2019 to 2021, whereas Wyoming having a median of approximately 80 percent in-person learning. The virtual learning model box plot [@box_plot_virtual] showed a significant number of outliers, suggesting that certain states had districts with a notably high share of virtual learning.The states Wyoming and Rhode Island had a median of 0 percent virtual learning whereas Virginia had highest median of virtual learning.  Lastly, the hybrid learning model [@box_plot_hybrid] box plot displayed variability, with some states having a wide interquartile range, showing a diverse adoption of this learning model. However, Colorado had a median of 0 percent adoption of hybrid learning model relative to other states. These visual insights set the foundation for further statistical examination in subsequent analyses. 
+Building on these overviews, we visualized the distribution of learning models across states using box plots. The box plot for in-person learning [@box_plot_inperson] revealed a range of engagement across states, with Virginia showing a median of 0 percentage in-person learning during 2019 to 2021, whereas Wyoming having a median of approximately 80 percent in-person learning.
 
-Following the initial box plots, we continued our investigation with a scatter plot [@scatterplot] and examined the relationship between the share of virtual learning and student passing rates. The scatter plot indicates a downward trend, with a line suggesting that an increase in the share of virtual learning correlates with a decrease in passing rates. The data points suggest that higher virtual learning is associated with lower academic performance of students.
+The virtual learning model box plot [@box_plot_virtual] showed a significant number of outliers, suggesting that certain states had districts with a notably high share of virtual learning.The states Wyoming and Rhode Island had a median of 0 percent virtual learning whereas Virginia had highest median of virtual learning.  Lastly, the hybrid learning model [@box_plot_hybrid] box plot displayed variability, with some states having a wide interquartile range, showing a diverse adoption of this learning model. However, Colorado had a median of 0 percent adoption of hybrid learning model relative to other states. These visual insights set the foundation for further statistical examination in subsequent analyses. 
+
+After assessing the distribution of in-person, virtual, and hybrid learning models across states, we narrowed our focus to further investigate the impact of virtual learning, as this model showed a significant variation and prevalence during the pandemic period. We plotted a scatter plot [@scatterplot] and examined the relationship between the share of virtual learning and student passing rates. The scatter plot indicates a negative trend, which implies that an increase in the share of virtual learning correlates with a decrease in passing rates. The data points suggest that higher virtual learning is associated with lower academic performance of students.
 
 After the initial analysis of learning model, we further studied the impact of Covid-19 on student's learning. We again plotted box plots [@covidboxplot] to observe the relationship between COVID-19 case rates per 100,000 and passing rates. COVID-19 case rates per 100,000 were categorized into 'Low,' 'Medium,' and 'High' based on the data's quartile distribution. It is revealed from the plot that districts with 'Low' COVID-19 case rates showed a median passing rates near the 50th percentile, while those categorized as 'High' showed a decline in median passing rates. 
 
-We further expanded our analysis to examine the relationship between the average number of students per staff and the average pass rate for virtual learners across the 11 states [@fig]. Due to insufficient data, Rhode Island (RI) and Mississippi (MS) were not graphed. The graph plots both these variables and shows an overall positive correlation between the number of students per staff on average vs the average pass rate. The trend indicates that the states with the higher pass rates also had more students assigned to a teacher. We note that Virginia (VA) had the highest student-to-staff ratio, while Wyoming (WY) had the lowest. While this may be not expected of a general learning environment, the virtual learning model may be a factor contributing to this positive relationship between the student-to-staff ratio and the average pass rates across the states. 
+We further expanded our analysis to examine the relationship between the average number of students per staff and the average pass rate for virtual learners across the 11 states [@fig]. Due to insufficient data, Rhode Island (RI) and Mississippi (MS) were not graphed. The graph plots both these variables and shows an overall positive correlation between the number of students per staff on average vs the average pass rate. The trend indicates that the states with the higher pass rates also had more students assigned to a teacher. We note that Virginia (VA) had the highest student-to-staff ratio, while Wyoming (WY) had the lowest. While this may be not expected of a general learning environment, the virtual learning model may be a factor contributing to this positive relationship between the student-to-staff ratio and the average pass rates across the states.
+
+
+
 
 ```{r}
 #| label: box_plot_inperson
