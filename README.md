@@ -7,7 +7,9 @@ This work is a replication and extension of the research presented in "Pandemic 
 
 Note: Language Learning Model ChatGPT was also used while writing this research paper. It was used for purpose of code debugging, plotting graphs and knowledge of certain topics, which we were not aware of. The chat with the AI bot, is also attached as a reference under `inputs\llm`. 
 
-Authors: Navya Gupta, Shivank Goel, Vanshika Vanshika
+Note: Our raw data from the original paper was extremely large, only relevant cleaned data of the raw data has been added to this repo for analysis. Link to replication package: https://www.openicpsr.org/openicpsr/project/168843/version/V1/view
+
+Authors: Navya Hooda, Shivank Goel, Vanshika Vanshika
 
 The repo is structured as:
 
