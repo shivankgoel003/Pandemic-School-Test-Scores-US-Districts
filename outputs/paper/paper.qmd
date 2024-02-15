@@ -3,7 +3,7 @@ title: "Assessing Factors Affecting Student's Performance during COVID-19 Pandem
 subtitle: "Data from USA"
 author: 
   - Vanshika Vanshika 
-  - Shivank Goyal
+  - Shivank Goel
   - Navya Hooda
 thanks: "Code and data are available at: https://github.com/shivankgoel003/Student-Performance-COVID-19-US-States-Factors; Minimal and Full Replication on Social Science Reproduction platform available at [https://www.socialsciencereproduction.org/reproductions/1470/published/index](https://www.socialsciencereproduction.org/reproductions/1470/published/index) "
 date: today
