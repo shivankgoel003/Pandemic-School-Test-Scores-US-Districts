@@ -8,7 +8,7 @@ author:
 thanks: "Code and data are available at: https://github.com/shivankgoel003/Student-Performance-COVID-19-US-States-Factors; Minimal and Full Replication on Social Science Reproduction platform available at [https://www.socialsciencereproduction.org/reproductions/1470/published/index](https://www.socialsciencereproduction.org/reproductions/1470/published/index) "
 date: today
 date-format: long
-abstract: "We analyze data from 11 U.S. states to assess the correlation between factors that may be indicative of student performance during COVID-19 learning disruptions. This paper replicates data analysis upon pandemic schooling and its affect on student test scores, and  further attempts to understand other mechanisms that led to learning losses during this period. Several charesteritics were related to student performance: mode of learning, loss of COVID-19 case rates, employment and student-to-staff ratio.The learning losses were found to be around 13–14 percentage points in math and approximately 8 percentage points in ELA between 2019 and 2021 (Jack and Oster 2023). In particular we discover that  all factors except student-to-staff ratio were relevant predictors and contributed to noticeable differences when compared to 2019 (pre-covid), these findings suggest that the factors that normally contribute to student performance had exacerbated effects during COVID-19 as they led to a larger magnitude of learning losses."
+abstract: "We analyze data from 11 U.S. states to assess the correlation between factors that may be indicative of student performance during COVID-19 learning disruptions. This paper replicates data analysis upon pandemic schooling and its affect on student test scores, and  further attempts to understand other mechanisms that led to learning losses during this period. Several charesteritics were related to student performance: mode of learning, loss of COVID-19 case rates, employment and student-to-staff ratio.The learning losses were found to be around 13–14 percentage points in math and approximately 8 percentage points in ELA between 2019 and 2021 (Jack and Oster 2023). In particular we discover that  all factors except student-to-staff ratio were relevant predictors and contributed to noticeable differences when compared to 2019 (pre-COVID-19), these findings suggest that the factors that normally contribute to student performance had exacerbated effects during COVID-19 as they led to a larger magnitude of learning losses."
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -139,9 +139,9 @@ Our analyses incorporate three categories of data: district-level schooling mode
 
 **State Score Data**: This dataset encompasses state-level academic performance statistics from 2016 to 2020. Variables include the proportion of in-person, virtual, and hybrid learning, participation rates, standardized test pass rates, COVID-19 case rates per 100,000 in school zip codes, peak monthly cases, total enrollment figures, and political voting shares by district. These variables are measured by the standardized test scores of each state. Each state records their scores differently and on different websites, so the methodology of measurements is unknown.
 
-**Learning Model Data**: This dataset details the learning models adopted by school districts in Colorado, Connecticut, Ohio, Virginia, West Virginia, Wyoming, Mississippi, Rhode Island, Minnesota, Massachusetts, and Wisconsin. Each state's data outlines the specific learning model (in-person, virtual, hybrid) employed over time, enrollment figures, and staffing counts. These variables are measured by NCES Demographic Data. Both district- and school-level demographic data from the National Center for Education Statistics Common Core of Data (https://nces.ed.gov/ccd/)
-were accessed through Urban Institute’s Education Data Portal using Stata 16 (https://educationdata.urban.org/documentation/). Data documentation can be found at the website above. COVID-19 Community Case Rate Data: We included COVID-19 Community Case Rate Data by District from the COVID-19 School Data Hub website accessed through the “Download Community Case
-Rate Data” in the Community Case Rate Data by District box on the 'For Researchers' page of the CSDH website (https://www.covidschooldatahub.com/for_researchers).
+**Learning Model Data**: This dataset details the learning models adopted by school districts in Colorado, Connecticut, Ohio, Virginia, West Virginia, Wyoming, Mississippi, Rhode Island, Minnesota, Massachusetts, and Wisconsin. Each state's data outlines the specific learning model (in-person, virtual, hybrid) employed over time, enrollment figures, and staffing counts. These variables are measured by NCES Demographic Data. Both district- and school-level demographic data from the National Center for Education Statistics Common Core of Data [@ccd]
+were accessed through Urban Institute’s Education Data Portal using Stata 16 (@edu). Data documentation can be found at the website above. COVID-19 Community Case Rate Data: We included COVID-19 Community Case Rate Data by District from the COVID-19 School Data Hub website accessed through the “Download Community Case
+Rate Data” in the Community Case Rate Data by District box on the 'For Researchers' page of the CSDH website (@datahub).
 
 
 ## Data Cleaning and Processing
@@ -270,9 +270,9 @@ passing_rate_variations
 
 
 ## Impact of Learning Model
-As the COVID-19 pandemic changed the educational model, schools across the United States adopted various learning methods to continue educating students such as virtual, hybrid, and in-person learning. This segment of our study focuses on how these learning models were implemented across different states and their impact on the academic performance of students.
+This segment of our study focuses on how different learning models were implemented across different states and their impact on the academic performance of students.
 
-We visualized the distribution of learning models across states using box plots. The box plot for in-person learning ,[@fig-plot-inperson], reveals a wide range of engagement across states, with Virginia showing a median of 0 percent in-person learning from 2019 to 2021, whereas Wyoming had a median of approximately 80 percent in-person learning.
+We visualized the distribution of learning models across states using box plots. The box plot for in-person learning, [@fig-plot-inperson], reveals a wide range of engagement across states, with Virginia showing a median of 0 percent in-person learning from 2019 to 2021, whereas Wyoming had a median of approximately 80 percent in-person learning.
 
 ```{r}
 #| label: extra
@@ -394,7 +394,7 @@ ggplot(hybrid_data, aes(x = state, y = share_hybrid)) +
 The virtual learning model box plot [@fig-plot-virtual] showed a significant number of outliers, suggesting that certain states had districts with a notably high share of virtual learning. The states Wyoming and Rhode Island had a median of 0 percent virtual learning whereas Virginia had the highest median of virtual learning.
 Lastly, the hybrid learning model [@fig-plot-hybrid] box plot displayed variability, with some states having a wide interquartile range, indicating a diverse adoption of this learning model. However, Colorado had a median of 0 percent adoption of the hybrid learning model relative to other states. These visual insights set the foundation for further statistical examination in subsequent analyses. 
 
-After assessing the distribution of in-person, virtual, and hybrid learning models across states, we narrowed our focus to further investigate the impact of virtual learning, as this model showed a significant variation and prevalence during the pandemic period. We plotted a scatter plot [@fig-scatterplot] and examined the relationship between the share of virtual learning and student passing rates. The scatter plot indicates a negative trend, which implies that an increase in the share of virtual learning correlates with a decrease in passing rates. The data points suggest that higher virtual learning is associated with lower academic performance of students.
+After assessing the distribution of in-person, virtual, and hybrid learning models across states, we narrowed our focus to further investigate the impact of virtual learning. This model showed a significant variation and prevalence during the pandemic period as seen in [@fig-scatterplot]. We examine the relationship between the share of virtual learning and student passing rates. The scatter plot indicates a negative trend, which implies that an increase in the share of virtual learning correlates with a decrease in passing rates. The data points suggest that higher virtual learning is associated with lower academic performance of students.
 
 ```{r}
 #| label: fig-scatterplot
@@ -439,7 +439,7 @@ ggplot(state_score, aes(x = category, y = pass, fill = category)) +
   scale_fill_brewer(palette = "Pastel1") 
 
 ```
-Referring to [@fig-covid], we further analyze the impact of the COVID case on the pass rate. We specifically use COVID cases measured by 100-thousand and the effect of case uptick on student pass rate. This allows us to have a closer look at the relationship between the variables, and the trend is negative as expected. Note that there is clustering on each end of the graph, this is likely explained by the time of data collection, i.e. when pass rates and student performance were measured. Given the rampant speed of COVID-19 cases during the pandemic, cases increased exponentially over different rates. However, the trend is clear and as expected despite the measurement gap. As the case rates go up, only points in lower passing rates are found, highlighting a negative trend. With this closer inspection of case rates, we can conclude that COVID-19 cases are indeed a significant factor contributing to the pass rates of students in the states we have assessed. 
+Referring to [@fig-covid], we further analyze the impact of the COVID-19 case rates on the pass rate. We specifically use COVID-19 cases measured by 100-thousand and the effect of case uptick on student pass rate. This allows us to have a closer look at the relationship between the variables, and the trend is negative as expected. Note that there is clustering on each end of the graph, this is likely explained by the time of data collection, i.e. when pass rates and student performance were measured. Given the rampant speed of COVID-19 cases during the pandemic, cases increased exponentially over different rates. However, the trend is clear and as expected despite the measurement gap. As the case rates go up, only points in lower passing rates are found, highlighting a negative trend. With this closer inspection of case rates, we can conclude that COVID-19 cases are indeed a significant factor contributing to the pass rates of students in the states we have assessed. 
 
 ```{r}
 #| label: fig-covid
@@ -463,7 +463,7 @@ ggplot(state_score, aes(x = case_rate_per100k_zip, y = pass)) +
 We further expanded our analysis to examine the relationship between the average number of students per staff and the average pass rate for virtual learners across the 11 states in [@fig-teachers].
 ```{r}
 #| label: fig-teachers
-#| fig-cap: "Relationship between teacher and pass rates"
+#| fig-cap: "Relationship between student-to-teacher ratio and pass rates"
 #| echo: false
 #| warning: false
 #| message: false
@@ -582,14 +582,12 @@ Upon this closer inspection of the replication data and resulting outcomes of ou
 
 The unemployment data obtained from Household Pulse Survey [@citehousehold] reports data through survey sampling. The survey references terms like ‘loss of employment income’ and its definition may vary across respondents or regions to some degree. Similarly, the economic conditions and opportunities vary across regions, what is considered well may not be the case in other regions. Hence these may add to disparities in reported loss of employment income. As is with surveys there is likely a factor of  non-response bias at play, certain groups of people may be less likely to respond to the survey, leading to under representation of their experiences. 
 
-In the staff-to-student ratio factor analysis, the student-staff ratio variable was newly calculated given the existing variables in our datasets. In this particular process, we noted that 2 states did not report staff counts throughout the COVID-19 schools years 2020-2021. Given we only have access to 11 states in total, out of those, two states had missing data. That proportion of missed data likely has neutralized what could’ve been a more definitive trend.  
-
-In general we must note that while we aim to assess how our chosen factors explored in the paper are relevant to student performance, we do not assess all such possibilities. The pandemic had 
+In the staff-to-student ratio factor analysis, the student-staff ratio variable was newly calculated given the existing variables in our datasets. In this particular process, we noted that 2 states did not report staff counts throughout the COVID-19 schools years 2020-2021. Given we only have access to 11 states in total, out of those, two states had missing data. That proportion of missed data likely has neutralized what could have been a more definitive trend.
 
 
 ## Limitations 
 
-Many of limitations of our analysis stem from those in the data of the original work of Jack and Oster (2023). In the context of studying COVID-19 learning outcomes, we require data that is available across pre-covid and covid times to draw comparisons upon significance of certain factors. However, this lacks across datasets provided to us in the replication. 
+Many of limitations of our analysis stem from those in the data of the original work of Jack and Oster (2023). In the context of studying COVID-19 learning outcomes, we require data that is available across pre-COVID-19 and COVID-19 times to draw comparisons upon significance of certain factors. However, this lacks across datasets provided to us in the replication. 
 
 Specifically, our analysis upon student-to-staff ratio as a factor was affected by the discrepancy in the data. While we had availability of pass rate through the years 2016-2021, we also noted that there was no data available for staff counts prior to 2020. In order to correctly claim student-to-staff ratio as a factor contributing to student learning loss during COVID-19, a comparison to the years prior would be ideal in concluding it as a sure factor. By this restriction in our data, concluding staff count as a factor was inconclusive. These limitations likely explain why our student-to-teacher ratio did not develop as a strong indicator of student performance. 
 
@@ -604,7 +602,7 @@ The current works of Jack and Oster (2023) only touch upon a handful topics rela
 
 COVID-19 may be in the past, but its profound impact on society and education remains relevant today. Studies indicate that students faced significant challenges during the pandemic, leading to potential long-term learning gaps. Analyzing the performance of students in grades 3-8 during COVID-19 compared to their current performance could provide valuable insights into the lasting effects of pandemic-related disruptions. These grades mark a critical period of development and impressionability for students, making it crucial to understand how their experiences during the pandemic have influenced their learning.
 
-Additionally, it is crucial to investigate whether students who experienced additional adversities, such as declines in mental health, continue to face challenges that affect their education today. Research suggests approximately 75% of young people in primary mental health care services experienced mental health issues post pandemic, with high levels of clinical depression, anxiety, and loneliness reported [@impact]. These findings highlight the need to explore the ongoing impact of mental health on learning and well-being.
+Additionally, it is crucial to investigate whether students who experienced additional adversities, such as declines in mental health, continue to face challenges that affect their education today. Research suggests approximately 75% of young people in primary mental health care services experienced mental health issues post pandemic, with high levels of clinical depression, anxiety, and stress reported [@impact]. These findings highlight the need to explore the ongoing impact of mental health on learning and well-being.
 
 By exploring these areas in greater detail, we can better prepare for future global health emergencies and develop guidelines to mitigate their widespread impact on younger populations. Addressing these issues is essential for preventing long-lasting epidemics related to mental health, promoting overall well-being among young people and minimizing overall learning loss.
 
