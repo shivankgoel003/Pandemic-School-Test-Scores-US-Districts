@@ -1,16 +1,18 @@
 ---
-title: "My title"
-subtitle: "My subtitle if needed"
+title: "Assessing Factors Affecting Student's Performance during COVID-19 Pandemic"
+subtitle: "Data from USA"
 author: 
-  - First author
-  - Another author
-thanks: "Code and data are available at: LINK."
+  - Vanshika Vanshika 
+  - Shivank Goyal
+  - Navya Hooda
+thanks: "Code and data are available at: https://github.com/shivankgoel003/Student-Performance-COVID-19-US-States-Factors; Minimal and Full Replication on Social Science Reproduction platform available at [https://www.socialsciencereproduction.org/reproductions/1470/published/index](https://www.socialsciencereproduction.org/reproductions/1470/published/index) "
 date: today
 date-format: long
-abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+abstract: "We analyze data from 11 U.S. states to assess the correlation between factors that may be indicative of student performance during COVID-19 learning disruptions. This paper replicates data analysis upon pandemic schooling and its affect on student test scores, and  further attempts to understand other mechanisms that led to learning losses during this period. Several charesteritics were related to student performance: mode of learning, loss of COVID-19 case rates, employment and student-to-staff ratio.The learning losses were found to be around 13–14 percentage points in math and approximately 8 percentage points in ELA between 2019 and 2021 (Jack and Oster 2023). In particular we discover that  all factors except student-to-staff ratio were relevant predictors and contributed to noticeable differences when compared to 2019 (pre-covid), these findings suggest that the factors that normally contribute to student performance had exacerbated effects during COVID-19 as they led to a larger magnitude of learning losses."
 format: pdf
 number-sections: true
 bibliography: references.bib
+toc: true
 ---
 
 ```{r}
@@ -23,6 +25,9 @@ library(knitr) # for kable
 library(kableExtra)
 library(here)
 library(ggbeeswarm)
+library(reshape2)
+library(ggplot2)
+library(dplyr)
 
 
 #reading cleaned data
@@ -86,204 +91,437 @@ scores_2019 = read_csv(
   show_col_types = FALSE
 )
 
+jobs = read_csv(
+  file = here("outputs/data/combined_cleaned_data.csv"),       
+  show_col_types = FALSE
+)
+
+dataset1  = read_csv(
+  file = here("outputs/data/cleaned_state_scoredata.csv"),       
+  show_col_types = FALSE
+)
+state_score  = read_csv(
+  file = here("outputs/data/cleaned_state_scoredata.csv"),       
+  show_col_types = FALSE
+)
+merged_data = read_csv(file = here("outputs/data/merged_data_by_state.csv"), show_col_types = FALSE)
+```
+# Introduction
+
+
+The COVID-19 pandemic has been one of the most challenging times globally in recent decades. The measures taken in place to reduce the transmission across the world were unprecedented but necessary in curbing the spread of disease. However, the cost of these measures posed disruption in every part of life whether it be businesses, healthcare, or education. For young people in particular, COVID-19 posed disruptions and threatened their sense of normalcy. The transition to COVID-19 learning manifested an environment of uncertainty and stress at a time of critical psychological development [@impact].
+
+
+The COVID-19 pandemic has created the largest disruption of education systems in history, affecting nearly 1.6 billion learners in more than 190 countries and all continents [@un]. COVID-19 led to rapid adaptations in learning models across schools and districts in the United States. From 2020 to 2021, educational institutions faced unprecedented challenges, transitioning between in-person, hybrid, and virtual learning models in response to evolving public health guidelines and infection rates. This shift in learning models has had severe impacts on student performance unlike anything we’ve seen in recent years. As reported by NAEP, from 2019 to 2022, the average performance on the National Assessment of Educational Progress [@naep] declined by 8 points in 8-th grade math, representing approximately 75% of a grade level, and by 3 points in eighth-grade reading, equivalent to roughly 25% of a grade level. While the pandemic was bound to impact learning outcomes of students, its likely that various factors played a role in the overall results, and not just the pandemic alone.
+
+
+In normal times, student performances have been studied and analyzed to highlight strong indicators of student performance. Among these important factors affecting students’ academic achievement are their economic background and conditions, personal health conditions, and teacher involvement. In particular, it is suggested that the adequacy of the physical conditions that make up the school, such as the information technology facilities, location, library and media facilities, and schoolyard are attributes important role in the student’s academic achievement. (@teachers) In the context of COVID-19 schooling, all these factors were impacted in some way. The physicality of a school environment was shifted to a virtual hybrid space, students’ health whether their own or of those around them was impacted due to the transmission of COVID-19, the pandemic brought in employment losses, and teachers were expected to rapidly provide learning in new formats. This changing dynamic raises the question of how these factors impacted student performance during COVID-19.
+
+In this paper, we embark on a comprehensive analysis to explore the estimand whether factors like loss of employment, COVID case rates, student-to-staff ratio in virtual learning, and the mode of learning had a significant impact on student performance, measured by the pass rates of students in grades 3-8  across the 11 U.S states namely Ohio (OH), Colorado (CO), Connecticut (CT), Minnesota (MN), Massachusetts (MA), Mississippi(MS), Rhode Island (RI), Virginia (VA), Wyoming (WY), Wisconsin (WI), and West Virginia (WV). 
+ Through examination, we show the transformative impact of the pandemic on the educational landscape across these states. Our analytical framework explores whether the patterns of the factors stated above contributed to the decline in test scores between 2019 and 2021, shedding light on the nuanced associations between the two.
+
+We explore the origin of this decline in detail by using the extensive dataset from the Household Pulse Survey [@citehousehold], searching for household dynamics that may have caused students’ lower academic performance and states’ diminished passing rates. Our findings reveal that the learning losses found during the pandemic were both substantial and highly heterogeneous across communities. We claim that these losses cannot be attributed to one cause but rather stem from a variety of diverse factors as we stated previously. Notably, the loss of household income during the pandemic exhibited a direct correlation with learning loss, with mathematics suffering a more significant decline compared to ELA courses. Additionally, we also explored the correlation between passing rates in each state and the type of learning mode used popularly,  which allowed us to demonstrate the varying impacts of in-person, hybrid, or virtual models on student pass rates. Furthermore, we highlight the significant effect of varying COVID-19 case rates on learning outcomes, in general, we notice that states experiencing higher infection rates manifested greater learning losses compared to their counterparts with lower case counts. 
+
+Recognizing the intricate effects of the pandemic on education is vital for crafting effective strategies moving forward. By grasping the various factors affecting student learning amidst these challenges, we can provide schools and districts with the tools they need to overcome obstacles and ensure every student receives the necessary support to succeed academically and beyond. We have the opportunity to strengthen the education system to counteract learning setbacks and pave the way for a brighter future for all students.
+
+
+This paper is structured as follows. In the Data Section, we denote the sources of the datasets utilized in the paper we are replicating, the specific techniques we used to process them, and highlight their key factors. In the Results Section we dive into the findings we discovered following replication and workings of the original paper, we assessed how they were relevant to our study of the factors contributing to the decline in student performance. In the Discussion Section, we address biases and weaknesses in the data that contribute to our findings, and how we approached analyzing those areas despite the limitations. 
+
+
+
+# Data {#sec-data}
+## Data Source and Collection
+
+The data utilized in this study is obtained from the compilation of district-level schooling models and state standardized assessment data, originally featured in the paper "Pandemic Schooling Mode and Student Test Scores: Evidence from US School Districts" [@citepaper] published in the American Economic Review: Insights in June 2023. [@citewebsite]. The primary dataset encompasses schooling mode data from the 2020–2021 academic year across 11 U.S. states, integrating various educational approaches during the pandemic, including in-person, hybrid, and virtual learning environments. These datasets were sourced from COVID-19 School Data Hub [@citedata], district-level state standardized assessment data from spring
+2016–2019 and 2021, and additional data demographic statistics from the National Center for Education Statistics (@nces) to establish a comprehensive analytical framework. We also used additional year 2020 household data by Household Pulse Survey [@citehousehold] from  U.S. Census Bureau spanning weeks 1 to 12.
+
+Our analyses incorporate three categories of data: district-level schooling modes, state standardized assessment results from the academic years 2016–2019 and 2021, and auxiliary  that encompass district demographics and county-level variables. The following subsections detail the sources, collection methodologies, and data cleaning procedures undertaken to ensure the accuracy and reliability of the datasets for our analysis.  
+
+**State Score Data**: This dataset encompasses state-level academic performance statistics from 2016 to 2020. Variables include the proportion of in-person, virtual, and hybrid learning, participation rates, standardized test pass rates, COVID-19 case rates per 100,000 in school zip codes, peak monthly cases, total enrollment figures, and political voting shares by district. These variables are measured by the standardized test scores of each state. Each state records their scores differently and on different websites, so the methodology of measurements is unknown.
+
+**Learning Model Data**: This dataset details the learning models adopted by school districts in Colorado, Connecticut, Ohio, Virginia, West Virginia, Wyoming, Mississippi, Rhode Island, Minnesota, Massachusetts, and Wisconsin. Each state's data outlines the specific learning model (in-person, virtual, hybrid) employed over time, enrollment figures, and staffing counts. These variables are measured by NCES Demographic Data. Both district- and school-level demographic data from the National Center for Education Statistics Common Core of Data (https://nces.ed.gov/ccd/)
+were accessed through Urban Institute’s Education Data Portal using Stata 16 (https://educationdata.urban.org/documentation/). Data documentation can be found at the website above. COVID-19 Community Case Rate Data: We included COVID-19 Community Case Rate Data by District from the COVID-19 School Data Hub website accessed through the “Download Community Case
+Rate Data” in the Community Case Rate Data by District box on the 'For Researchers' page of the CSDH website (https://www.covidschooldatahub.com/for_researchers).
+
+
+## Data Cleaning and Processing
+We used R [@citeR] for data cleaning and processing, utilizing packages like tidyverse [@tidy] for data manipulation and janitor [@jan] for cleaning column names. Other packages used includes `ggplot2` [@ggplot], `dplyr` [@dp], `readr` [@read], `tibble` [@tib], `janitor` [@jan],`reshape2` [@reshape], `knitr` [@knit], `ggbeeswarm` [@gg], `ggrepel` [@repel], `kableExtra`[@kable] and `here` [@here].The cleaning process involved standardizing learning model categories, selecting columns of interest, and simplifying data for analysis. We integrated data from different states, and made sure that variations in reporting and measurement were addressed while combining them into one. For instance, some states categorized their schooling mode as "In-person," while others used "In-Person." To ensure they are equivalent, we standardized these terms. We also conducted a check for missing data values, and imputed or excluded them as appropriate based on the context. The variables were also renamed for clarity and consistency across different states' datasets.  A sample of cleaned state score data can be seen in [@tbl-cleaned-data].
+```{r}
+#| label: tbl-cleaned-data
+#| message: false
+#| echo: false
+#| warning: false
+#| tbl-cap: "Sample of Cleaned State Score Data"
+
+
+options(kableExtra.latex.max.width=1)
+head(state_score, 6) |>
+  kable(
+        col.names = c("State", "Year", "Share In-person", "Share Virtual", "Share Hybrid", "Participation", "Pass Rate", "Covid cases rate per 100k", "Total Enrollment"),
+    booktabs = TRUE,
+    longtable = FALSE
+  ) %>%
+  kable_styling(latex_options = c("striped", "scale_down"), font_size = 6)
+```
+
+
+### Student-to-Staff Ratio Across the 11 States
+
+This variable was not directly provided in our original paper, to retrieve this relationship we 
+required 2 variables, average pass rates across each state, and the average student-to-staff ratio for each state. To find these we had to use 2 different types of datasets to finally combine them to reach our variable of interest.
+We first used “cleaned_state_scoredata.dta” in .csv format, this dataset contains pass rates for various districts across the 11 U.S. states. Since we require an average across the states we grouped all the state pass rates in 2021 for each state by filtering and calculated it by dividing the pass rate sum by the number of total pass rates reported in one specific state, this yields the average pass rate for each state as needed. We then proceed to find the student-to-staff ratio. This information is specific to each state and found in the replication data. We use each state’s xlsx file, which contains the variables ‘enrollment_total’ and ‘staff_count’. The statistics are reported biweekly in this data, so we choose to aggregate them by finding all unique values for enrollment and teacher numbers, with that we find the ratio by dividing the total number of students by staff count. We do this calculation for each state by looping through each file and yielding a simple average for each state are newly created and cleaned results seen in [@tbl-teacher].
+
+
+
+```{r}
+#| label: tbl-teacher
+#| tbl-cap: "Sample of Cleaned Student-to-Staff Ratio"
+#| message: false
+#| echo: false
+#| warning: false
+
+
+options(kableExtra.latex.max.width=1)
+
+# Define the data
+state <- c("CO", "CT", "MA", "MN", "MS", "OH", "RI", "VA", "WI", "WV", "WY")
+average_pass <- c(32.3143154318402, 50.2760636293435, 43.862676056338, 46.0322019263922, 59.9536587026782, 58.8878278763826, 34.7934722039435, 54.1523990342111, 38.6599490324205, 32.0722727272727, 51.9001212765773)
+average_students_per_teacher <- c(6.54852303777137, 9.75566450808731, 6.73622340678238, 7.32408458156817, NA, 4.85888729378285, NA, 11.1500196439537, 6.55786715773129, 6.19012111835609, 3.57947403685482)
+
+# Create the data frame
+df <- data.frame(State = state, `Pass Rate` = average_pass, `Average Students per Teacher` = average_students_per_teacher)
+
+# Print the table
+df %>%
+  kable(col.names = c("State", "Pass Rate", "Avg. Students per Teacher"), 
+        format = "latex",
+        booktabs = TRUE) %>%
+  kable_styling(latex_options = c("striped", "scale_down"), font_size = 6)
+```
+
+
+
+## Data Modifications
+
+In this study, we developed a unique dataset by carefully selecting and combining data from the Household Pulse Survey [@citehousehold], available from the U.S. Census Bureau for weeks 1 to 12. This data was measured by using the survey to get both qualitative and quantitative data. This process involved choosing key variables that were crucial for our research. We aimed to analyze the connection between economic changes, particularly the loss of employment income, and their impact on educational outcomes, focusing specifically on school passing rates. This helped us to understand the relationship between these economic factors and educational performance. To ensure consistency, we standardized terminologies and measurements, and aligned variables such as timeframes and demographic categories across the datasets. For example, we combined the state score data with the weekly household data, aligned variables relevant to our study. The merged data file was thereafter saved as a CSV file to study the trends later on.
+
+
+
+
+```{r}
+#| label: fig-marks
+#| fig-cap: "Comparison between Maths and ELA "
+#| echo: false
+
+# Comparing passing rates between different subjects
+subject_comparison <- ggplot(scores, aes(x = subject, y = pass, fill = subject)) +
+  geom_boxplot() +
+  labs(title = "Passing Rates Comparison Between Different Subjects",
+       x = "Subject",
+       y = "Passing Rate") +
+  theme_minimal()
+
+# Display the graph
+subject_comparison
+
+```
+
+
+# Results
+
+Here are two comprehensive overviews detailing passing rate trends. Furthermore, we delve into the factors contributing to these trends.
+
+1. Passing Rate Trends Over Different Years and Subjects: [@fig-subject] shows the decline in passing rates in English Language Arts (ELA) and Mathematics from 2016 to 2021, with larger decline in maths than ELA [@fig-marks],  depicting a consistent downward trend across both subjects especially during the pandemic period from 2019 to 2021.
+```{r}
+#| label: fig-subject
+#| fig-cap: "Passing Rate Trend"
+#| echo: false
+
+
+
+# new graph
+passing_rate_trends <- ggplot(scores, aes(x = year, y = pass, color = subject)) +
+  geom_line() +
+  labs(title = "Passing Rate Trends Over Different Years and Subjects",
+       x = "Year",
+       y = "Passing Rate",
+       color = "Subject") +
+  theme_minimal()
+passing_rate_trends
+```
+2. Variations in Passing Rates Between Different States: The box plot comparison [@fig-passing-trend] across states showcases the wide range of passing rates, with some states showing a widespread, which indicates the variability in performance within those states.
+
+```{r}
+#| label: fig-passing-trend
+#| fig-cap: "Variations in Passing Rates Between Different States"
+#| echo: false
+
+# Variations 
+passing_rate_variations <- ggplot(scores, aes(x = state, y = pass, fill = state)) +
+  geom_boxplot() +
+  labs(title = "Variations in Passing Rates Between Different States",
+       x = "State",
+       y = "Passing Rate") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+passing_rate_variations
+
+```
+
+
+## Impact of Learning Model
+As the COVID-19 pandemic changed the educational model, schools across the United States adopted various learning methods to continue educating students such as virtual, hybrid, and in-person learning. This segment of our study focuses on how these learning models were implemented across different states and their impact on the academic performance of students.
+
+We visualized the distribution of learning models across states using box plots. The box plot for in-person learning ,[@fig-plot-inperson], reveals a wide range of engagement across states, with Virginia showing a median of 0 percent in-person learning from 2019 to 2021, whereas Wyoming had a median of approximately 80 percent in-person learning.
+
+```{r}
+#| label: extra
+#| fig-cap: "set up for graphs"
+#| echo: false
+#| warning: false
+#| message: false
+#| results: hide
+
+library(patchwork)
+
+
+data_2019 <- state_score %>%
+  filter(year == 2019) %>%
+  group_by(state) %>%
+  summarise(
+    avg_share_inperson = mean(share_inperson, na.rm = TRUE)*100,
+    avg_share_virtual = mean(share_virtual, na.rm = TRUE)*100,
+    avg_share_hybrid = mean(share_hybrid, na.rm = TRUE)*100,
+    avg_participation = mean(participation, na.rm = TRUE),
+    avg_pass_rate = mean(pass, na.rm = TRUE)*100
+  )
+
+data_2021 <- state_score %>%
+  filter(year == 2021) %>%
+  group_by(state) %>%
+  summarise(
+    avg_share_inperson = mean(share_inperson, na.rm = TRUE)*100,
+    avg_share_virtual = mean(share_virtual, na.rm = TRUE)*100,
+    avg_share_hybrid = mean(share_hybrid, na.rm = TRUE)*100,
+    avg_participation = mean(participation, na.rm = TRUE),
+    avg_pass_rate = mean(pass, na.rm = TRUE)*100
+  )
+
+
+options(kableExtra.latex.max.width = 1)
+data_2019 %>% 
+  kable(format = "markdown", 
+        col.names = c("State", "Avg. Share In-person", "Avg. Share Virtual", "Avg. Share Hybrid", "Avg. Participation", "Avg. Pass Rate"),
+        booktabs = TRUE,
+        longtable = FALSE
+  ) %>%
+  kable_styling(latex_options = c("striped", "scale_down"), font_size = 9)
+
+options(kableExtra.latex.max.width = 1)
+data_2021 %>% 
+  kable(format = "markdown", 
+        col.names = c("State", "Avg. Share In-person", "Avg. Share Virtual", "Avg. Share Hybrid", "Avg. Participation", "Avg. Pass Rate"),
+        booktabs = TRUE,
+        longtable = FALSE
+  ) %>%
+  kable_styling(latex_options = c("striped", "scale_down"), font_size = 9)
+
+
+
+
+inperson_data <- state_score %>%
+  select(state, share_inperson)
+
+virtual_data <- state_score %>%
+  select(state, share_virtual)
+# Prepare data for hybrid learning model
+hybrid_data <- state_score %>%
+  select(state, share_hybrid)
+
 ```
 
 ```{r}
-#| label: Vanshika-graphs
-#| fig-cap: lets see
+#| label: fig-plot-inperson
+#| fig-cap: "In-Person Learning Model"
 #| echo: false
-# Plotting passing rates for each state
-ggplot(scores, aes(x = state, y = pass, fill = state)) +
-  geom_bar(stat = "identity") +
-  labs(title = "Passing Rates Across Different States",
-       x = "State",
-       y = "Passing Rate") +
+#| warning: false
+#| message: false
+# Step 2: Plot the data
+ggplot(inperson_data, aes(x = state, y = share_inperson)) +
+  geom_boxplot() +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-# graph of all the passing rate all the different states 
-
-
-# Calculate the difference between passing rates
-pass_diff <- scores$pass - mean(scores$pass)
-
-# Plotting
-ggplot(scores, aes(x = state, y = pass_diff, fill = state)) +
-  geom_bar(stat = "identity") +
-  labs(title = "Difference in Passing Rates Between States",
-       x = "State",
-       y = "Difference in Passing Rates") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
-
-
-# The lowest passing rates were Rhode Island
-
-# graph for rode island and its unemployemnt during covid
-# Plotting passing rates for each state
-rhode_island_data <- subset(scores, state == "RI")
-ggplot(scores, aes(x = state , y = unemployment, fill = state)) +
-  geom_bar(stat = "identity") +
-  labs(title = "unemployment Across Different States",
-       x = "State",
-       y = "Unemployemtn Rate") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-# graph of all the passing rate all the different states 
-
-ggplot(scores, aes(x = state , y = cts_pass_advanced, fill = state)) +
-  geom_bar(stat = "identity") +
-  labs(title = "advanced Passing Rates Across Different States",
-       x = "State",
-       y = "Passing Rate") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
-
-
-ggplot(scores, aes(x = state , y = cts_pass_proficient, fill = state)) +
-  geom_bar(stat = "identity") +
-  labs(title = "profient Passing Rates Across Different States",
-       x = "State",
-       y = "Passing Rate") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
-
-ggplot(scores, aes(x = state , y = cts_pass_approaching, fill = state)) +
-  geom_bar(stat = "identity") +
-  labs(title = "approaching Passing Rates Across Different States",
-       x = "State",
-       y = "Passing Rate") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
-ggplot(scores, aes(x = state , y = cts_pass_partially, fill = state)) +
-  geom_bar(stat = "identity") +
-  labs(title = "Partially Passing Rates Across Different States",
-       x = "State",
-       y = "Passing Rate") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
-ggplot(scores, aes(x = state , y = cts_pass_below, fill = state)) +
-  geom_bar(stat = "identity") +
-  labs(title = "below Passing Rates Across Different States",
-       x = "State",
-       y = "Passing Rate") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
-
-
-# DATA WITH ONLY 2019
-ggplot(scores_2019, aes(x = state, y = pass, fill = state)) +
-  geom_bar(stat = "identity") +
-  labs(title = "Passing Rates In 2019",
-       x = "State",
-       y = "Passing Rate") +
-  theme_minimal() +
+  labs(title = "In-Person Learning Model Share Across States",
+       x = "State", y = "Share of In-Person Learning") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ```
 
 ```{r}
-#| label: Vanshika-RI
-#| fig-cap: lets see
+#| label: fig-plot-virtual
+#| fig-cap: "Virtual Learning Model"
 #| echo: false
-library(reshape2)
-# Select relevant columns for correlation analysis
-correlation_data <- scores[, c("pass", "participation", "share_black", "share_white", "share_hisp", "share_lunch", "unemployment")]
-
-# Calculate correlation matrix
-correlation_matrix <- cor(correlation_data, use="complete.obs")
-
-# Convert the correlation matrix to a data frame
-correlation_df <- melt(correlation_matrix)
-
-# Plotting the correlation heatmap
-correlation_heatmap <- ggplot(correlation_df, aes(Var1, Var2, fill=value)) +
-  geom_tile(color="white") +
-  scale_fill_gradient2(low="blue", mid="white", high="red", midpoint=0, limit=c(-1,1), space="Lab", name="Correlation") +
+#| warning: false
+#| message: false
+# Plot for virtual learning model
+ggplot(virtual_data, aes(x = state, y = share_virtual)) +
+  geom_boxplot() +
   theme_minimal() +
-  labs(title = "Correlation Analysis: Heatmap of Correlation Coefficients",
-       x = "Variables",
-       y = "Variables") +
-   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-
-# Display the heatmap
-correlation_heatmap
-
-
-
-# Select relevant columns for correlation analysis
-correlation_data <- scores[, c("share_inperson", "share_virtual", "share_hybrid", "pass", "participation", "share_black", "share_white", "share_hisp", "unemployment")]
-
-# Calculate correlation matrix
-correlation_matrix <- cor(correlation_data, use="complete.obs")
-
-# Convert the correlation matrix to a data frame
-correlation_df <- melt(correlation_matrix)
-
-# Plotting the correlation heatmap with vertical x-axis labels
-correlation_heatmap <- ggplot(correlation_df, aes(Var1, Var2, fill=value)) +
-  geom_tile(color="white") +
-  scale_fill_gradient2(low="blue", mid="white", high="red", midpoint=0, limit=c(-1,1), space="Lab", name="Correlation") +
-  theme_minimal() +
-  labs(title = "Correlation Analysis: Heatmap of Correlation Coefficients",
-       x = "Variables",
-       y = "Variables") +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-
-# Display the heatmap
-correlation_heatmap
-
-
-
-# Select relevant columns for correlation analysis
-correlation_data <- scores %>%
-  select(state, participation, share_inperson)
-
-# Calculate correlation matrix by grouping data by state and then calculating correlations
-correlation_matrix <- correlation_data %>%
-  group_by(state) %>%
-  summarise(correlation = cor(participation, share_inperson))
-
-# Plotting the correlation graph
-correlation_graph <- ggplot(correlation_matrix, aes(x = state, y = correlation)) +
-  geom_bar(stat = "identity", fill = "skyblue", width = 0.5) +
-  labs(title = "Correlation between Participation Rate and Share In Person by State",
-       x = "State",
-       y = "Correlation") +
-  theme_minimal() +
+  labs(title = "Virtual Learning Model Share Across States",
+       x = "State", y = "Share of Virtual Learning") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-# Display the correlation graph
-correlation_graph
+# Prepare data for hybrid learning model
+hybrid_data <- state_score %>%
+  select(state, share_hybrid)
+```
 
-
-# coorelation between virtual and participation
-# Select relevant columns for correlation analysis
-correlation_data <- scores %>%
-  select(state, participation, share_virtual)
-
-# Calculate correlation matrix by grouping data by state and then calculating correlations
-correlation_matrix <- correlation_data %>%
-  group_by(state) %>%
-  summarise(correlation = cor(participation, share_virtual))
-
-# Plotting the correlation graph
-correlation_graph <- ggplot(correlation_matrix, aes(x = state, y = correlation)) +
-  geom_bar(stat = "identity", fill = "skyblue", width = 0.5) +
-  labs(title = "Correlation between Participation Rate and Share virtual by State",
-       x = "State",
-       y = "Correlation") +
+```{r}
+#| label: fig-plot-hybrid
+#| fig-cap: "Hybrid Learning Model"
+#| echo: false
+#| warning: false
+#| message: false
+# Plot for hybrid learning model
+ggplot(hybrid_data, aes(x = state, y = share_hybrid)) +
+  geom_boxplot() +
   theme_minimal() +
+  labs(title = "Hybrid Learning Model Share Across States",
+       x = "State", y = "Share of Hybrid Learning") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-# Display the correlation graph
-correlation_graph
+```
 
+The virtual learning model box plot [@fig-plot-virtual] showed a significant number of outliers, suggesting that certain states had districts with a notably high share of virtual learning. The states Wyoming and Rhode Island had a median of 0 percent virtual learning whereas Virginia had the highest median of virtual learning.
+Lastly, the hybrid learning model [@fig-plot-hybrid] box plot displayed variability, with some states having a wide interquartile range, indicating a diverse adoption of this learning model. However, Colorado had a median of 0 percent adoption of the hybrid learning model relative to other states. These visual insights set the foundation for further statistical examination in subsequent analyses. 
+
+After assessing the distribution of in-person, virtual, and hybrid learning models across states, we narrowed our focus to further investigate the impact of virtual learning, as this model showed a significant variation and prevalence during the pandemic period. We plotted a scatter plot [@fig-scatterplot] and examined the relationship between the share of virtual learning and student passing rates. The scatter plot indicates a negative trend, which implies that an increase in the share of virtual learning correlates with a decrease in passing rates. The data points suggest that higher virtual learning is associated with lower academic performance of students.
+
+```{r}
+#| label: fig-scatterplot
+#| fig-cap: "Scatter Plot of Virtual Learning Share vs. Passing Rate"
+#| echo: false
+#| warning: false
+#| message: false
+ggplot(state_score, aes(x = share_virtual, y = pass)) +
+  geom_point() +  # Add points to the plot
+  geom_smooth(method = "lm", se = FALSE) +  # Add a linear trend line without the shaded confidence interval
+  theme_minimal() +
+  labs(title = "Scatter Plot of Virtual Learning Share vs. Passing Rate",
+       x = "Share of Virtual Learning", y = "Passing Rate") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+## Impact of COVID-19 Case Rates 
+
+When we look closer at how the pandemic affected student learning, we observe that the number of COVID-19 cases in an area seemed to have a correlation with student performance. We created box plots [@fig-c] to observe the relationship between COVID-19 case rates per 100,000 and passing rates. We categorized case rates into 'Low,' 'Medium,' and 'High' based on the data's quartile distribution. The plot reveals that districts with 'Low' COVID-19 case rates showed a median passing rate near the 50th percentile, while those categorized as 'High' showed a decline in median passing rates. Essentially, the trend suggests that places with fewer COVID-19 cases had average passing rates, but as the number of cases went up, the passing rates went down.
+```{r}
+#| label: fig-c
+#| fig-cap: "Passing Rates by COVID-19 Case Rate Categories"
+#| echo: false
+#| warning: false
+# Create a box plot
+state_score <- state_score %>% 
+  filter(!is.na(case_rate_per100k_zip) & !is.nan(case_rate_per100k_zip))
+
+state_score$category <- cut(state_score$case_rate_per100k_zip, 
+                            breaks = quantile(state_score$case_rate_per100k_zip, 
+                                              probs = 0:3/3, na.rm = TRUE), 
+                            include.lowest = TRUE, 
+                            labels = c("Low", "Medium", "High"))
+
+# Create a box plot with colors
+ggplot(state_score, aes(x = category, y = pass, fill = category)) +
+  geom_boxplot() +
+  labs(title = "Passing Rates by COVID-19 Case Rate Categories", 
+       x = "COVID-19 Case Rate Category", 
+       y = "Passing Rate") +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Pastel1") 
+
+```
+Referring to [@fig-covid], we further analyze the impact of the COVID case on the pass rate. We specifically use COVID cases measured by 100-thousand and the effect of case uptick on student pass rate. This allows us to have a closer look at the relationship between the variables, and the trend is negative as expected. Note that there is clustering on each end of the graph, this is likely explained by the time of data collection, i.e. when pass rates and student performance were measured. Given the rampant speed of COVID-19 cases during the pandemic, cases increased exponentially over different rates. However, the trend is clear and as expected despite the measurement gap. As the case rates go up, only points in lower passing rates are found, highlighting a negative trend. With this closer inspection of case rates, we can conclude that COVID-19 cases are indeed a significant factor contributing to the pass rates of students in the states we have assessed. 
+
+```{r}
+#| label: fig-covid
+#| fig-cap: "Correlation between Passing Rate and COVID-19 Case Rate per 100k"
+#| echo: false
+#| warning: false
+
+ggplot(state_score, aes(x = case_rate_per100k_zip, y = pass)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "COVID-19 Case Rate per 100k", y = "Passing Rate", 
+       title = "Correlation between Passing Rate & COVID-19 Cases") +
+  theme_minimal() +
+  xlim(0,100)
+
+
+
+
+```
+## Impact of Staff Avalibility
+We further expanded our analysis to examine the relationship between the average number of students per staff and the average pass rate for virtual learners across the 11 states in [@fig-teachers].
+```{r}
+#| label: fig-teachers
+#| fig-cap: "Relationship between teacher and pass rates"
+#| echo: false
+#| warning: false
+#| message: false
+ # Define colors for each state
+# Create a scatter plot with colored points and labels using ggplot2
+ggplot(merged_data, aes(x = average_students_per_teacher, y = average_pass, color = state, label = state)) +
+  geom_point() +
+  geom_text(size = 3, nudge_x = 0.2, nudge_y = 0.1, check_overlap = TRUE) +  # Add text labels to each point
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  labs(x = "Average Students per Teacher", y = "Average Pass Rates", title = "Average Students per Teacher and Average Pass Rates") +
+  theme(plot.title = element_text(size = 8)) +  # Adjust the size of the title here
+  scale_color_manual(values = rainbow(length(unique(merged_data$state))))  # Set custom colors for each state
+```
+
+Due to insufficient data, Rhode Island (RI) and Mississippi (MS) were not graphed. The graph plots both these variables and shows an overall positive correlation between the number of students per staff on average vs the average pass rate. The trend indicates that the states with higher pass rates had more students assigned to a teacher. We note that Virginia (VA) had the highest student-to-staff ratio, while Wyoming (WY) had the lowest. While this may be not expected of a general learning environment, the virtual learning model may be a factor contributing to this positive relationship between the student-to-staff ratio and the average pass rates across the states.
+
+Referring to [@fig-teachers], we observe a positive correlation between the average student-staff ratio and the average pass rates across the 9 states with valid data. The correlation seems inconclusive towards pass rates in COVID-19, hence it is not a significant factor in our assessment.
+
+
+## Impact of Loss of Employment Income on Passing Rate 
+
+Every point on the [@fig-incomeloss] represents the average passing rate of a particular state and their average loss of employment income. As seen in [@fig-incomeloss], unemployment has a negative correlation with the passing rate of students across all the states in the U.S. As the loss of income increases, the average passing rate of the students across all the US states decreases and this establishes a negative correlation between these quantities.
+
+The dataset by @citepaper also shows the negative correlation between unemployment and passing rates of students. This can be seen in @fig-unemployment where the graph is in the negative and which negative effects on the passing rate following unemployment in population of all the states.
+``` {r}
+#| label: fig-incomeloss
+#| fig-cap: "Correlation between Pass Rates and Total Loss of Employment Income"
+#| echo: false
+#| warning: false
+
+# Create a mapping between state codes and full state names
+state_mapping <- c("AL" = "Alabama", "AK" = "Alaska", "AZ" = "Arizona", "AR" = "Arkansas", "CA" = "California", "CO" = "Colorado", "CT" = "Connecticut", "DE" = "Delaware", "DC" = "District of Columbia", "FL" = "Florida", "GA" = "Georgia", "HI" = "Hawaii", "ID" = "Idaho", "IL" = "Illinois", "IN" = "Indiana", "IA" = "Iowa", "KS" = "Kansas", "KY" = "Kentucky", "LA" = "Louisiana", "ME" = "Maine", "MD" = "Maryland", "MA" = "Massachusetts", "MI" = "Michigan", "MN" = "Minnesota", "MS" = "Mississippi", "MO" = "Missouri", "MT" = "Montana", "NE" = "Nebraska", "NV" = "Nevada")
+
+# Map state codes to full state names
+dataset1$full_state <- state_mapping[dataset1$state]
+
+# Calculate average pass rates for each state
+avg_pass_rates <- dataset1 %>%
+  group_by(full_state) %>%
+  summarise(avg_pass = mean(pass))
+
+# Merge datasets based on state name
+merged_data1 <- merge(avg_pass_rates, jobs, by.x = "full_state", by.y = "Area")
+
+# Scatter plot with linear regression line (flipped axes)
+ggplot(merged_data1, aes(x = total_loss_of_employment_income, y = avg_pass)) +
+  geom_point(color = "blue", alpha = 0.5) +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  labs(title = "Pass Rates and Total Loss of Employment Income",
+       x = "Total Loss of Employment Income",
+       y = "Average Pass Rate") +
+  theme_minimal()
+```
+
+```{r}
+#| label: fig-unemployment
+#| fig-cap: "Correlation between Unemployement Rate and passing rate by State"
+#| echo: false
 
 # corelation between pass and unemployemnt 
 # Select relevant columns for correlation analysis
@@ -298,7 +536,7 @@ correlation_matrix <- correlation_data %>%
 # Plotting the correlation graph
 correlation_graph <- ggplot(correlation_matrix, aes(x = state, y = correlation)) +
   geom_bar(stat = "identity", fill = "purple", width = 0.5) +
-  labs(title = "Correlation between Unemployement Rate and passing rate by State",
+  labs(title = "Unemployement Rate and Passing Rate by State",
        x = "State",
        y = "Correlation") +
   theme_minimal() +
@@ -308,270 +546,67 @@ correlation_graph <- ggplot(correlation_matrix, aes(x = state, y = correlation))
 correlation_graph
 ```
 
-```{r}
-#| label: Random Graphs
-#| fig-cap: lets see
-#| echo: false
-
-library(ggplot2)
-
-# Passing rate trends over different years and subjects
-passing_rate_trends <- ggplot(scores, aes(x = year, y = pass, color = subject)) +
-  geom_line() +
-  labs(title = "Passing Rate Trends Over Different Years and Subjects",
-       x = "Year",
-       y = "Passing Rate",
-       color = "Subject") +
-  theme_minimal()
-
-# Variations between different districts or states
-passing_rate_variations <- ggplot(scores, aes(x = state, y = pass, fill = state)) +
-  geom_boxplot() +
-  labs(title = "Variations in Passing Rates Between Different States",
-       x = "State",
-       y = "Passing Rate") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
-# Display the graphs
-passing_rate_trends
-passing_rate_variations
-
-
-
-
-# Investigating participation rates across districts or states
-participation_rates <- ggplot(scores, aes(x = state, y = participation, fill = state)) +
-  geom_boxplot() +
-  labs(title = "Participation Rates Across Different States",
-       x = "State",
-       y = "Participation Rate") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
-# Display the graph
-participation_rates
-
-
-
-# Relationship between demographic factors and passing rates
-demographic_analysis <- ggplot(scores, aes(x = share_black, y = pass)) +
-  geom_point() +
-  labs(title = "Relationship Between Percentage of Black Students and Passing Rate",
-       x = "Percentage of Black Students",
-       y = "Passing Rate") +
-  theme_minimal()
-
-# Display the graph
-demographic_analysis
-
-
-
-
-
-# Comparing passing rates between different subjects
-subject_comparison <- ggplot(scores, aes(x = subject, y = pass, fill = subject)) +
-  geom_boxplot() +
-  labs(title = "Passing Rates Comparison Between Different Subjects",
-       x = "Subject",
-       y = "Passing Rate") +
-  theme_minimal()
-
-# Display the graph
-subject_comparison
-
-```
-# Introduction
-
-The COVID-19 pandemic has profoundly disrupted education systems worldwide, compelling schools and districts across the United States to rapidly adapt their learning models. In 2020 and 2021, educational institutions faced unprecedented challenges, transitioning between in-person, hybrid, and virtual learning models in response to evolving public health guidelines and infection rates. This shift has brought into sharp focus the need to understand the implications of these various schooling models on educational outcomes.
-
-This paper delves into a comprehensive analysis across 11 U.S. states, examining the relationship between different schooling models and their impact on student enrollment and staffing patterns. The unique dataset compiled for this study encompasses a variety of metrics, including total enrollment, in-person and virtual attendance, as well as staff count across different learning models. By analyzing data from kindergarten to 12th grade, this study provides a granular view of how the pandemic has reshaped the educational landscape across these states.
-
-Our findings reveal significant variations in how states have navigated the challenges posed by the pandemic, with notable differences in the adoption of in-person, hybrid, and virtual learning models. We observe that these variations are not only reflective of public health policies but also indicate broader socio-economic and demographic influences. For instance, preliminary analysis suggests that shifts to virtual learning correlate with changes in student enrollment, raising questions about equity and access in education during these challenging times.
-
-The remainder of the paper is structured as follows: Section 2 provides a detailed overview of the data and methodology employed in this study. Section 3 presents an in-depth analysis of the schooling models across the 11 states, offering insights into the trends and patterns observed in the data. Section 4 discusses the key findings, exploring the implications of these schooling models on educational outcomes. Finally, Section 5 concludes with a reflection on the study's findings, limitations, and potential directions for future research in this critical area of educational policy.
-
-The remainder of this paper is structured as follows. @sec-data....
-
-
-
-# Data {#sec-data}
-
-Some of our data is of penguins (@fig-bills), from @palmerpenguins.
-
-```{r}
-#| label: fig-bills
-#| fig-cap: Bills of penguins
-#| echo: false
-
-library(dplyr)
-
-# Assuming each state data frame has the same structure and columns
-all_states <- bind_rows(
-  colorado %>% mutate(state = "Colprado"),
-  connecticut %>% mutate(state = "Connecticut"),
-  massachusets %>% mutate(state = "Massachusets"),
-  minnesota %>% mutate(state = "Minnesota"),
-  mississippi %>% mutate(state = "Mississsippi"),
-  ohio %>% mutate(state = "Ohio"),
-  rhode %>% mutate(state = "Rhode Islands"),
-  virginia %>% mutate(state = "Virginia"),
-  westvirginia %>% mutate(state = "West Virginia"),
-  winscosin %>% mutate(state = "Winscosin"),
-  wyoming %>% mutate(state = "Wyoming"),
-  
-)
-
-all_states$time_period_start <- as.Date(all_states$time_period_start, format = "%Y-%m-%d")
-all_states$learning_model <- as.factor(all_states$learning_model)
-
-library(ggplot2)
-
-# ggplot(all_states, aes(x = time_period_start, y = learning_model, color = state)) +
-#   geom_line() +
-#   labs(title = "Comparison of Learning Models in US States Over Time",
-#        x = "Time Period Start", y = "Learning Model") +
-#   theme_minimal() +
-#   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
-# ggplot(all_states, aes(x = time_period_start, y = learning_model, group = state, color = state)) +
-#   geom_line() +
-#   scale_x_date(date_breaks = "1 month", date_labels = "%b %Y") +
-#   theme(axis.text.x = element_text(angle = 90, hjust = 1)) # Rotate x-axis labels if needed
-# 
-
-#tthis graph is correct, but causing scale bias, since data is large for some states like Minnesota has 21000 rows, but low for few states like Colorado which only has 1600 rows,
-# learning_model_summary <- all_states %>%
-#   count(state, learning_model) %>%
-#   ungroup()
-# 
-# # Plotting with a bar graph
-# ggplot(learning_model_summary, aes(x = state, y = n, fill = learning_model)) + 
-#   geom_bar(stat = "identity", position = "dodge") +
-#   theme_minimal() +
-#   labs(x = "State", y = "Frequency of Learning Model", fill = "Learning Model", 
-#        title = "Comparison of Learning Models in US States") +
-#   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
-
-#therefore we scale it first, by taking proportions:
-state_totals <- all_states %>%
-  group_by(state) %>%
-  summarise(total = n())
-
-# Calculate the proportion of each learning model within each state
-all_states <- all_states %>%
-  group_by(state, learning_model) %>%
-  summarise(count = n(), .groups = 'drop') %>%
-  left_join(state_totals, by = "state") %>%
-  mutate(proportion = count / total)
-
-# Plotting with a bar graph
-# ggplot(all_states, aes(x = state, y = proportion, fill = learning_model)) + 
-#   geom_bar(stat = "identity", position = "dodge") +
-#   theme_minimal() +
-#   labs(x = "State", y = "Proportion", fill = "Learning Model", 
-#        title = "Proportional Comparison of Learning Models in US States") +
-  # scale_y_continuous(labels = scales::percent)
-
-ggplot(all_states, aes(x = state, y = proportion, fill = learning_model)) + 
-  geom_bar(stat = "identity", position = position_dodge(width = 0.9)) +
-  theme_minimal() +
-  labs(x = "State", y = "Proportion of Leaning Models", fill = "Learning Model", 
-       title = "Proportional Comparison of Learning Models in US States") +
-  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1, size = 8),
-        plot.title = element_text(hjust = 0.5))
-
-```
-
-Talk more about it.
-
-And also planes (@fig-planes). (You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work well once you have enough text.)
-
-```{r}
-#| label: fig-planes
-#| fig-cap: Relationship between wing length and width
-#| echo: false
-#| warning: false
-#| message: false
-
-
-```
-
-Talk way more about it. 
-
-
-
-# Model
-
-The goal of our modelling strategy is twofold. Firstly,...
-
-Here we briefly describe the Bayesian analysis model used to investigate... Background details and diagnostics are included in [Appendix -@sec-model-details].
-
-## Model set-up
-
-Define $y_i$ as the number of seconds that the plane remained aloft. Then $\beta_i$ is the wing width and $\gamma_i$ is the wing length, both measured in millimeters.  
-
-\begin{align} 
-y_i|\mu_i, \sigma &\sim \mbox{Normal}(\mu_i, \sigma) \\
-\mu_i &= \alpha + \beta_i + \gamma_i\\
-\alpha &\sim \mbox{Normal}(0, 2.5) \\
-\beta &\sim \mbox{Normal}(0, 2.5) \\
-\gamma &\sim \mbox{Normal}(0, 2.5) \\
-\sigma &\sim \mbox{Exponential}(1)
-\end{align}
-
-We run the model in R [@citeR] using the `rstanarm` package of @rstanarm. We use the default priors from `rstanarm`.
-
-
-### Model justification
-
-We expect a positive relationship between the size of the wings and time spent aloft. In particular...
-
-We can use maths by including latex between dollar signs, for instance $\theta$.
-
-
-# Results
-
-Our results are summarized in @tbl-modelresults.
-
-
-
-
-
-
-
 # Discussion
 
-## First discussion point {#sec-first-point}
+## Findings
 
-If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this. 
-
-## Second discussion point
-
-## Third discussion point
-
-## Weaknesses and next steps
-
-Weaknesses and next steps should also be included.
-
-\newpage
-
-\appendix
-
-# Appendix {-}
+In this paper, we have replicated the results found by @citepaper. Their analysis sought to explore the impact of different learning models on COVID-19 for different states, and explored how certain modes of schooling were more or less effective with some focus on different racial groups. Our paper extends upon and replicates two of their major findings.
 
 
-# Additional data details
+1. The virtual learning model had more variability in their results against pass rates, virtual learners had a decline in performance, measured by pass rates in our analysis. Specifically, we were able to quantify the amount of variability in the different learning models. 
 
-# Model details {#sec-model-details}
+2. In exploring the learning loss subject wise, we consistently see across all groups that changes in pass rates for math are much larger than the changes in pass rates for ELA. Pass rate losses are approximately 13–14 percentage points in math and approximately 8 percentage points in ELA between 2019 and 2021.
 
-## Posterior predictive check
 
-In @fig-ppcheckandposteriorvsprior-1 we implement a posterior predictive check. This shows...
+While our analysis uses the general themes of the original claims regarding schooling mode, we have explored the decline of student test scores from the perspective of three other factors. These factors were not explored as a focused topic in the original work. As the paper has previously stated unemployment rates, staff count, covid case rates, learning mode and staff count are the focus of our analysis. Here are some of the key findings from our results. 
 
-In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. This shows... 
+In our study examining different teaching methods during the pandemic, we found that there isn't a one-size-fits-all approach to educating students when schools face disruptions. Some schools that continued in-person classes managed reasonably well, while others that transitioned to fully online instruction saw a decline in student grades. The effectiveness of the hybrid approach, which combines online and in-person teaching, varied depending on how it was implemented in each location.We observed a trend suggesting that areas with lower COVID-19 case counts tended to have higher average passing rates, while areas with higher case counts experienced lower passing rates. This could indicate that increased illness rates may have impacted students' ability to perform academically, possibly due to concerns about health, disruptions in schooling, or other factors.
+
+Additionally, our analysis considers the phenomenon of grade inflation during the pandemic years, which may have artificially boosted passing rates, particularly among lower-performing students [@pace]. The presence of missing data from two states underscores the potential for bias in our assessment of this relationship, suggesting that other factors such as virtual learning modalities, grading policies during COVID-19, and regional differences may influence student pass rates.
+
+The economic repercussions of job loss during the pandemic also play a significant role in students' academic outcomes. Families facing financial strain may struggle to afford essential educational resources, hindering students' ability to access materials, tutoring, or technology necessary for remote learning. This economic hardship exacerbates existing disparities in learning outcomes tied to socioeconomic status, particularly during the pandemic.
+
+Furthermore, decreased access to educational resources due to financial constraints can impact students' preparation for standardized tests. As Vogels et al. [@internet] highlight in their examination of U.S. adults surveyed between April 7th and 12th, 2020, approximately 36% expressed concerns about the possibility that their children might face challenges in completing school assignments due to the lack of access to a home computer for educational support, indicating that a significant portion of households faced challenges in completing school assignments due to the lack of a home computer.
+
+Moreover, students from families experiencing job loss may encounter disruptions in their schooling, such as changes in attendance, increased mobility due to housing instability, or shifts between in-person and remote learning environments. These disruptions can impede academic progress and performance on standardized tests.
+
+All these reasons are crucial to understanding the low passing marks of students during COVID-19 and present some context to the trend observed in our results above.
+
+
+
+## Accounting for Bias  
+
+The process of collecting quantitative and qualitative data, especially during a pandemic presents its unique challenges. Exploring the data provided in the paper we are replicating, we note that state data has been provided from individual state agencies, rather than from a centralized data source. As a result, we likely experience some degree of measurement bias as the measuring has not been stated to be standardized across the 11 states.
+Similarly, the pass rates data found in ‘cleaned_state_scoredata’ reports numbers district wise per state. The data source did not provide insight into whether all districts in the states have been accounted for in our dataset, as such this introduces a selection bias it is likely more high performing or lower performing schools were allotted for our analysis.
+Upon this closer inspection of the replication data and resulting outcomes of our analysis, we note that the nature of data and their compatibility are the primary concern for the validity of our results.
+
+The unemployment data obtained from Household Pulse Survey [@citehousehold] reports data through survey sampling. The survey references terms like ‘loss of employment income’ and its definition may vary across respondents or regions to some degree. Similarly, the economic conditions and opportunities vary across regions, what is considered well may not be the case in other regions. Hence these may add to disparities in reported loss of employment income. As is with surveys there is likely a factor of  non-response bias at play, certain groups of people may be less likely to respond to the survey, leading to under representation of their experiences. 
+
+In the staff-to-student ratio factor analysis, the student-staff ratio variable was newly calculated given the existing variables in our datasets. In this particular process, we noted that 2 states did not report staff counts throughout the COVID-19 schools years 2020-2021. Given we only have access to 11 states in total, out of those, two states had missing data. That proportion of missed data likely has neutralized what could’ve been a more definitive trend.  
+
+In general we must note that while we aim to assess how our chosen factors explored in the paper are relevant to student performance, we do not assess all such possibilities. The pandemic had 
+
+
+## Limitations 
+
+Many of limitations of our analysis stem from those in the data of the original work of Jack and Oster (2023). In the context of studying COVID-19 learning outcomes, we require data that is available across pre-covid and covid times to draw comparisons upon significance of certain factors. However, this lacks across datasets provided to us in the replication. 
+
+Specifically, our analysis upon student-to-staff ratio as a factor was affected by the discrepancy in the data. While we had availability of pass rate through the years 2016-2021, we also noted that there was no data available for staff counts prior to 2020. In order to correctly claim student-to-staff ratio as a factor contributing to student learning loss during COVID-19, a comparison to the years prior would be ideal in concluding it as a sure factor. By this restriction in our data, concluding staff count as a factor was inconclusive. These limitations likely explain why our student-to-teacher ratio did not develop as a strong indicator of student performance. 
+
+In another instance, our ‘learning model’ folder has data for each of the 11 U.S. states in their respective .csv files. Each file however reports data in different time intervals, some biweekly and some monthly, possibly introducing measurement bias to a certain degree to our overall state specific results. Our main measure of student performance, pass rates is found in a different file, a quantity reported by various districts per state. Upon closer inspection, the pass rates are only reported at certain intervals in the pandemic. When we combined these variables to assess their relationship, we generally aggregated our data by obtaining a yearly average that encompasses all the intervals reported. As a direct consequence, we were restricted to exploring only the high-level picture of the factors, a yearly correlation with pass rates. 
+
+Lastly, the dataset employs records on 11 U.S states to generalize the COVID-19 learning outcomes across United States. Only 11 out of 48 states have been analysed, that is roughly one quarter of the country being represented, and no specific reasoning was provided for this choice. This discrepancy raises the question whether the states assessed were of significance or convenience. Neither California nor New York were accounted for, naturally these two areas likely had much different experiences in COVID-19 being key metropolitan hubs in America. These limitations hinder a broader image of COVID-19 learning trends, and our ability to synethesize accurate trends related to COVID-19 impact on learning that is  representative of the entire country.  
+
+
+## Future Research 
+
+The current works of Jack and Oster (2023) only touch upon a handful topics related to COVID-19 learning impacts. Often these results presented stem from incomplete, incompatible datasets. To gain a clear picture of the factors that affected student performance, the study needs to expand other aspects of the pandemic. 
+
+COVID-19 may be in the past, but its profound impact on society and education remains relevant today. Studies indicate that students faced significant challenges during the pandemic, leading to potential long-term learning gaps. Analyzing the performance of students in grades 3-8 during COVID-19 compared to their current performance could provide valuable insights into the lasting effects of pandemic-related disruptions. These grades mark a critical period of development and impressionability for students, making it crucial to understand how their experiences during the pandemic have influenced their learning.
+
+Additionally, it is crucial to investigate whether students who experienced additional adversities, such as declines in mental health, continue to face challenges that affect their education today. Research suggests approximately 75% of young people in primary mental health care services experienced mental health issues post pandemic, with high levels of clinical depression, anxiety, and loneliness reported [@impact]. These findings highlight the need to explore the ongoing impact of mental health on learning and well-being.
+
+By exploring these areas in greater detail, we can better prepare for future global health emergencies and develop guidelines to mitigate their widespread impact on younger populations. Addressing these issues is essential for preventing long-lasting epidemics related to mental health, promoting overall well-being among young people and minimizing overall learning loss.
 
 
 

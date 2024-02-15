@@ -1,0 +1,738 @@
+File,Area,total_loss_of_employment_income,percent_loss_of_employment_income
+1,Alabama,1648851,44.4
+1,Alaska,239409,45.6
+1,Arizona,2383738,42.7
+1,Arkansas,866958,39
+1,California,16264632,54.5
+1,Colorado,2214259,49.8
+1,Connecticut,1261318,46.2
+1,Delaware,344999,45.8
+1,District of Columbia,180436,33.3
+1,Florida,7943162,46.5
+1,Georgia,3605689,45.4
+1,Hawaii,632785,59.2
+1,Idaho,503700,37.5
+1,Illinois,4369656,46.3
+1,Indiana,2047540,41
+1,Iowa,914389,39.1
+1,Kansas,751894,35.2
+1,Kentucky,1563948,46.9
+1,Louisiana,1908008,55.7
+1,Maine,472828,44.4
+1,Maryland,1852075,40.8
+1,Massachusetts,2465408,46.9
+1,Michigan,4215893,55.2
+1,Minnesota,1716789,40.6
+1,Mississippi,995590,45.5
+1,Missouri,1972213,42.8
+1,Montana,314065,38.4
+1,Nebraska,563415,39.8
+1,Nevada,1336837,55.8
+1,New Hampshire,479252,44.8
+1,New Jersey,3831063,56.6
+1,New Mexico,670980,42.4
+1,New York,7832513,53
+1,North Carolina,3558562,44.5
+1,North Dakota,257984,46.1
+1,Ohio,3777700,42.9
+1,Oklahoma,1386735,47.6
+1,Oregon,1707408,51.7
+1,Pennsylvania,4860890,49.8
+1,Rhode Island,369923,45.4
+1,South Carolina,1807346,45.6
+1,South Dakota,256371,39.9
+1,Tennessee,2437773,47.1
+1,Texas,9720355,45.7
+1,Utah,1005934,44.4
+1,Vermont,206192,42.6
+1,Virginia,3082330,47.7
+1,Washington,2610017,44.4
+1,West Virginia,544834,39.5
+1,Wisconsin,1812821,40.9
+1,Wyoming,146523,34
+1,-> Metro Areas,NA,NA
+1,"Atlanta-Sandy Springs-Alpharetta, GA Metro Area",2694331,51.1
+1,"Boston-Cambridge-Newton, MA-NH Metro Area",1771444,47.1
+1,"Chicago-Naperville-Elgin, IL-IN-WI Metro Area",3209156,49.2
+1,"Dallas-Fort Worth-Arlington, TX Metro Area",3399788,54.4
+1,"Detroit-Warren-Dearborn, MI Metro Area",2163764,56.7
+1,"Houston-The Woodlands-Sugar Land, TX Metro Area",2585507,50.2
+1,"Los Angeles-Long Beach-Anaheim, CA Metro Area",6350219,57.5
+1,"Miami-Fort Lauderdale-Pompano Beach, FL Metro Area",2625941,56.7
+1,"New York-Newark-Jersey City, NY-NJ-PA Metro Area",7465002,56.2
+1,"Philadelphia-Camden-Wilmington, PA-NJ-DE-MD Metro Area",2425383,55.7
+1,"Phoenix-Mesa-Chandler, AZ Metro Area",1607978,42.1
+1,"Riverside-San Bernardino-Ontario, CA Metro Area",2772384,62.7
+1,"San Francisco-Oakland-Berkeley, CA Metro Area",2025324,48.5
+1,"Seattle-Tacoma-Bellevue, WA Metro Area",1415633,45.7
+1,"Washington-Arlington-Alexandria, DC-VA-MD-WV Metro Area",1599704,38
+2,Alabama,1572529,42.5
+2,Alaska,248535,47.6
+2,Arizona,2327363,41.8
+2,Arkansas,808737,36.3
+2,California,16572515,55.5
+2,Colorado,2091688,47.1
+2,Connecticut,1314368,48.2
+2,Delaware,340706,45.3
+2,District of Columbia,211264,39.1
+2,Florida,8413104,49.6
+2,Georgia,3550035,44.7
+2,Hawaii,592795,55.3
+2,Idaho,530479,39.6
+2,Illinois,4277170,45.5
+2,Indiana,2657236,53.1
+2,Iowa,895950,38.5
+2,Kansas,866413,40.5
+2,Kentucky,1422763,42.8
+2,Louisiana,1591987,46.5
+2,Maine,485666,45.8
+2,Maryland,2059603,45
+2,Massachusetts,2339537,44.2
+2,Michigan,4420301,58.3
+2,Minnesota,1779224,42
+2,Mississippi,1067821,49
+2,Missouri,1994091,43.4
+2,Montana,365728,44.7
+2,Nebraska,608813,43.2
+2,Nevada,1479536,61.9
+2,New Hampshire,526901,49.4
+2,New Jersey,3668472,54.6
+2,New Mexico,728174,46.1
+2,New York,7789086,52.6
+2,North Carolina,3721170,46.6
+2,North Dakota,210162,37.6
+2,Ohio,4006578,45.7
+2,Oklahoma,1296055,44.7
+2,Oregon,1739608,52.8
+2,Pennsylvania,4855344,49.9
+2,Rhode Island,364708,44.8
+2,South Carolina,1930854,48.8
+2,South Dakota,249706,38.9
+2,Tennessee,2563625,49.2
+2,Texas,10260399,48.3
+2,Utah,999302,44
+2,Vermont,230222,47.6
+2,Virginia,2716805,42.1
+2,Washington,2711066,46.2
+2,West Virginia,633629,46
+2,Wisconsin,1936670,43.9
+2,Wyoming,166618,38.5
+2,-> Metro Areas,NA,NA
+2,"Atlanta-Sandy Springs-Alpharetta, GA Metro Area",2308763,46.3
+2,"Boston-Cambridge-Newton, MA-NH Metro Area",1758535,46.1
+2,"Chicago-Naperville-Elgin, IL-IN-WI Metro Area",3278147,48.1
+2,"Dallas-Fort Worth-Arlington, TX Metro Area",3136217,50.8
+2,"Detroit-Warren-Dearborn, MI Metro Area",2338139,62.2
+2,"Houston-The Woodlands-Sugar Land, TX Metro Area",2831352,52.6
+2,"Los Angeles-Long Beach-Anaheim, CA Metro Area",6860591,61.6
+2,"Miami-Fort Lauderdale-Pompano Beach, FL Metro Area",3433427,60.8
+2,"New York-Newark-Jersey City, NY-NJ-PA Metro Area",7634086,57.4
+2,"Philadelphia-Camden-Wilmington, PA-NJ-DE-MD Metro Area",2509389,54.6
+2,"Phoenix-Mesa-Chandler, AZ Metro Area",1631096,42.3
+2,"Riverside-San Bernardino-Ontario, CA Metro Area",2486572,60.6
+2,"San Francisco-Oakland-Berkeley, CA Metro Area",1939659,45.5
+2,"Seattle-Tacoma-Bellevue, WA Metro Area",1378936,44.5
+2,"Washington-Arlington-Alexandria, DC-VA-MD-WV Metro Area",2047627,43.2
+3,Alabama,1493111,40.3
+3,Alaska,238877,45.6
+3,Arizona,2602019,46.7
+3,Arkansas,837085,37.4
+3,California,16713654,56
+3,Colorado,1971937,44.5
+3,Connecticut,1272063,46.7
+3,Delaware,377678,50.2
+3,District of Columbia,200279,36.9
+3,Florida,8672522,50.9
+3,Georgia,3614105,46.6
+3,Hawaii,598790,56
+3,Idaho,453608,34
+3,Illinois,4569968,48
+3,Indiana,2364057,47.2
+3,Iowa,855703,36.5
+3,Kansas,865204,40.5
+3,Kentucky,1392986,41.8
+3,Louisiana,1744055,51.3
+3,Maine,491483,46.2
+3,Maryland,1957350,43.3
+3,Massachusetts,2385498,45.1
+3,Michigan,4308659,56.7
+3,Minnesota,1975774,46.9
+3,Mississippi,1082939,49.7
+3,Missouri,1755204,38.2
+3,Montana,326184,39.8
+3,Nebraska,489794,34.6
+3,Nevada,1500918,62.7
+3,New Hampshire,468895,43.9
+3,New Jersey,3608781,53.5
+3,New Mexico,765501,48.5
+3,New York,8102985,54.9
+3,North Carolina,3542592,44.4
+3,North Dakota,193876,34.7
+3,Ohio,3876668,44.2
+3,Oklahoma,1140305,39.2
+3,Oregon,1562737,47.4
+3,Pennsylvania,5253912,53.9
+3,Rhode Island,380726,46.7
+3,South Carolina,1713773,43.4
+3,South Dakota,268041,41.9
+3,Tennessee,2355202,45.2
+3,Texas,9845693,46.6
+3,Utah,909726,40.1
+3,Vermont,244877,50.6
+3,Virginia,2750708,42.7
+3,Washington,2547828,43.3
+3,West Virginia,579374,42.2
+3,Wisconsin,1813844,41
+3,Wyoming,157341,36.5
+3,-> Metro Areas,NA,NA
+3,"Atlanta-Sandy Springs-Alpharetta, GA Metro Area",2128175,51
+3,"Boston-Cambridge-Newton, MA-NH Metro Area",1651195,43.1
+3,"Chicago-Naperville-Elgin, IL-IN-WI Metro Area",3702920,52.1
+3,"Dallas-Fort Worth-Arlington, TX Metro Area",3566954,53.3
+3,"Detroit-Warren-Dearborn, MI Metro Area",2078195,57.1
+3,"Houston-The Woodlands-Sugar Land, TX Metro Area",2818918,49.5
+3,"Los Angeles-Long Beach-Anaheim, CA Metro Area",6641445,63.4
+3,"Miami-Fort Lauderdale-Pompano Beach, FL Metro Area",2904627,57.3
+3,"New York-Newark-Jersey City, NY-NJ-PA Metro Area",8215388,56
+3,"Philadelphia-Camden-Wilmington, PA-NJ-DE-MD Metro Area",2540813,53.8
+3,"Phoenix-Mesa-Chandler, AZ Metro Area",1802025,48.1
+3,"Riverside-San Bernardino-Ontario, CA Metro Area",2579535,60.6
+3,"San Francisco-Oakland-Berkeley, CA Metro Area",1798889,46.5
+3,"Seattle-Tacoma-Bellevue, WA Metro Area",1523500,46
+3,"Washington-Arlington-Alexandria, DC-VA-MD-WV Metro Area",2044528,43.5
+4,Alabama,1437102,38.8
+4,Alaska,236656,45.3
+4,Arizona,2554328,45.8
+4,Arkansas,842207,37.6
+4,California,15419448,51.9
+4,Colorado,2143049,48.3
+4,Connecticut,1303380,48
+4,Delaware,306042,40.8
+4,District of Columbia,226000,41.7
+4,Florida,8604022,50.8
+4,Georgia,3833526,48.4
+4,Hawaii,631457,59.2
+4,Idaho,535712,39.9
+4,Illinois,4149811,43.7
+4,Indiana,2200125,43.9
+4,Iowa,940145,40.3
+4,Kansas,918833,43.1
+4,Kentucky,1470664,44.1
+4,Louisiana,1655413,48.4
+4,Maine,456203,43.1
+4,Maryland,2070202,45.3
+4,Massachusetts,2591401,48.8
+4,Michigan,4363089,57.3
+4,Minnesota,2003380,47.3
+4,Mississippi,1113036,51
+4,Missouri,1931278,42
+4,Montana,290730,35.5
+4,Nebraska,511948,36.1
+4,Nevada,1376221,57.5
+4,New Hampshire,470806,44
+4,New Jersey,3589084,53.5
+4,New Mexico,742728,46.9
+4,New York,8420249,56.9
+4,North Carolina,3598578,45
+4,North Dakota,195370,34.9
+4,Ohio,4292345,48.9
+4,Oklahoma,1312450,45.4
+4,Oregon,1671449,50.8
+4,Pennsylvania,4933539,50.7
+4,Rhode Island,403263,49.5
+4,South Carolina,1718718,43.7
+4,South Dakota,247613,38.6
+4,Tennessee,2316787,44.7
+4,Texas,10594761,49.9
+4,Utah,997071,43.8
+4,Vermont,229075,47.3
+4,Virginia,2657548,41.2
+4,Washington,2769312,47.2
+4,West Virginia,527412,38.3
+4,Wisconsin,1779463,40.2
+4,Wyoming,165209,38.4
+4,-> Metro Areas,NA,NA
+4,"Atlanta-Sandy Springs-Alpharetta, GA Metro Area",2162186,50.8
+4,"Boston-Cambridge-Newton, MA-NH Metro Area",1850498,47.7
+4,"Chicago-Naperville-Elgin, IL-IN-WI Metro Area",3361845,48.5
+4,"Dallas-Fort Worth-Arlington, TX Metro Area",2751668,46.8
+4,"Detroit-Warren-Dearborn, MI Metro Area",2149212,61.2
+4,"Houston-The Woodlands-Sugar Land, TX Metro Area",3221216,56.7
+4,"Los Angeles-Long Beach-Anaheim, CA Metro Area",6025914,54.8
+4,"Miami-Fort Lauderdale-Pompano Beach, FL Metro Area",2775163,60.9
+4,"New York-Newark-Jersey City, NY-NJ-PA Metro Area",8192868,57.6
+4,"Philadelphia-Camden-Wilmington, PA-NJ-DE-MD Metro Area",2525342,52.9
+4,"Phoenix-Mesa-Chandler, AZ Metro Area",1908698,49.5
+4,"Riverside-San Bernardino-Ontario, CA Metro Area",2542406,61.3
+4,"San Francisco-Oakland-Berkeley, CA Metro Area",1782658,48.1
+4,"Seattle-Tacoma-Bellevue, WA Metro Area",1569653,48.1
+4,"Washington-Arlington-Alexandria, DC-VA-MD-WV Metro Area",2182724,43.8
+5,Alabama,1684668,45.5
+5,Alaska,233598,44.5
+5,Arizona,2444829,43.8
+5,Arkansas,881256,39.5
+5,California,16471831,55.2
+5,Colorado,2171527,48.8
+5,Connecticut,1251566,45.9
+5,Delaware,336949,44.7
+5,District of Columbia,229674,42.4
+5,Florida,8151064,47.9
+5,Georgia,3795144,48
+5,Hawaii,542213,50.8
+5,Idaho,511577,38.7
+5,Illinois,4628797,49
+5,Indiana,2057326,41.2
+5,Iowa,863120,37
+5,Kansas,828284,39
+5,Kentucky,1443776,43.4
+5,Louisiana,1755229,51.3
+5,Maine,476609,45
+5,Maryland,1853977,40.8
+5,Massachusetts,2579966,48.6
+5,Michigan,4263419,55.9
+5,Minnesota,1846231,44.3
+5,Mississippi,1093916,50.3
+5,Missouri,2021506,44.1
+5,Montana,337034,41.1
+5,Nebraska,509833,36
+5,Nevada,1300099,54.4
+5,New Hampshire,476302,44.9
+5,New Jersey,3461303,51.5
+5,New Mexico,682412,43
+5,New York,8153762,55
+5,North Carolina,3391807,42.9
+5,North Dakota,203457,36.3
+5,Ohio,4061450,46.2
+5,Oklahoma,1288568,44.3
+5,Oregon,1641645,49.8
+5,Pennsylvania,4923662,50.7
+5,Rhode Island,421117,51.8
+5,South Carolina,1776200,44.9
+5,South Dakota,232479,36.6
+5,Tennessee,2423978,46.9
+5,Texas,10245171,48.1
+5,Utah,813321,35.8
+5,Vermont,207259,42.8
+5,Virginia,2474250,38.3
+5,Washington,2651565,45.2
+5,West Virginia,541996,39.9
+5,Wisconsin,1740693,39.5
+5,Wyoming,154002,35.7
+5,-> Metro Areas,NA,NA
+5,"Atlanta-Sandy Springs-Alpharetta, GA Metro Area",2421398,50.3
+5,"Boston-Cambridge-Newton, MA-NH Metro Area",1725588,48.5
+5,"Chicago-Naperville-Elgin, IL-IN-WI Metro Area",3339349,48.8
+5,"Dallas-Fort Worth-Arlington, TX Metro Area",3250048,49.9
+5,"Detroit-Warren-Dearborn, MI Metro Area",2033001,57.5
+5,"Houston-The Woodlands-Sugar Land, TX Metro Area",3084862,52.9
+5,"Los Angeles-Long Beach-Anaheim, CA Metro Area",6074547,59.6
+5,"Miami-Fort Lauderdale-Pompano Beach, FL Metro Area",2641424,57.5
+5,"New York-Newark-Jersey City, NY-NJ-PA Metro Area",8026838,55.2
+5,"Philadelphia-Camden-Wilmington, PA-NJ-DE-MD Metro Area",2435096,50.4
+5,"Phoenix-Mesa-Chandler, AZ Metro Area",1833268,47.1
+5,"Riverside-San Bernardino-Ontario, CA Metro Area",2605722,59.2
+5,"San Francisco-Oakland-Berkeley, CA Metro Area",1771696,54.8
+5,"Seattle-Tacoma-Bellevue, WA Metro Area",1628558,49.2
+5,"Washington-Arlington-Alexandria, DC-VA-MD-WV Metro Area",1908051,40.8
+6,Alabama,1765955,47.8
+6,Alaska,257419,49.1
+6,Arizona,2458322,44.1
+6,Arkansas,907424,40.5
+6,California,16014564,53.6
+6,Colorado,2109469,47.5
+6,Connecticut,1278858,46.9
+6,Delaware,304172,40.4
+6,District of Columbia,226091,41.7
+6,Florida,8123349,47.7
+6,Georgia,3708037,46.7
+6,Hawaii,526430,49.4
+6,Idaho,587959,43.8
+6,Illinois,4803734,50.6
+6,Indiana,2255974,45.3
+6,Iowa,887954,38.1
+6,Kansas,921443,43.1
+6,Kentucky,1486062,44.5
+6,Louisiana,1870151,54.6
+6,Maine,459529,43.2
+6,Maryland,1926330,42.1
+6,Massachusetts,2497349,47.2
+6,Michigan,4278404,56
+6,Minnesota,1944917,46
+6,Mississippi,1162043,53.8
+6,Missouri,1970943,42.7
+6,Montana,298555,36.4
+6,Nebraska,476947,33.7
+6,Nevada,1414417,59.1
+6,New Hampshire,473223,44.1
+6,New Jersey,3273463,48.5
+6,New Mexico,688247,43.3
+6,New York,7817411,52.9
+6,North Carolina,3390615,42.3
+6,North Dakota,224699,40.1
+6,Ohio,3890918,44.1
+6,Oklahoma,1162700,40.2
+6,Oregon,1704613,51.6
+6,Pennsylvania,4808634,49.5
+6,Rhode Island,359561,44.2
+6,South Carolina,1880006,47.7
+6,South Dakota,250430,39
+6,Tennessee,2422009,46.5
+6,Texas,10529000,49.4
+6,Utah,852374,37.4
+6,Vermont,220535,45.5
+6,Virginia,2309270,36
+6,Washington,2936663,50
+6,West Virginia,609704,44.2
+6,Wisconsin,1795651,40.5
+6,Wyoming,154041,35.6
+6,-> Metro Areas,NA,NA
+6,"Atlanta-Sandy Springs-Alpharetta, GA Metro Area",2259180,50.5
+6,"Boston-Cambridge-Newton, MA-NH Metro Area",1723410,47.7
+6,"Chicago-Naperville-Elgin, IL-IN-WI Metro Area",3700813,53.2
+6,"Dallas-Fort Worth-Arlington, TX Metro Area",3121305,51.7
+6,"Detroit-Warren-Dearborn, MI Metro Area",1920497,55.4
+6,"Houston-The Woodlands-Sugar Land, TX Metro Area",3102695,54
+6,"Los Angeles-Long Beach-Anaheim, CA Metro Area",6520661,60
+6,"Miami-Fort Lauderdale-Pompano Beach, FL Metro Area",2591393,54.9
+6,"New York-Newark-Jersey City, NY-NJ-PA Metro Area",7896544,54.6
+6,"Philadelphia-Camden-Wilmington, PA-NJ-DE-MD Metro Area",2458652,49.7
+6,"Phoenix-Mesa-Chandler, AZ Metro Area",1708731,44.7
+6,"Riverside-San Bernardino-Ontario, CA Metro Area",2286639,58.5
+6,"San Francisco-Oakland-Berkeley, CA Metro Area",1793290,50.4
+6,"Seattle-Tacoma-Bellevue, WA Metro Area",1643757,50.9
+6,"Washington-Arlington-Alexandria, DC-VA-MD-WV Metro Area",1746999,37.7
+7,Alabama,1616410,43.6
+7,Alaska,233971,44.6
+7,Arizona,2438386,43.8
+7,Arkansas,894199,39.9
+7,California,16596234,55.8
+7,Colorado,1966014,44.2
+7,Connecticut,1221502,44.8
+7,Delaware,348734,46.3
+7,District of Columbia,198598,36.8
+7,Florida,8036850,47.2
+7,Georgia,3888425,49
+7,Hawaii,489326,46.3
+7,Idaho,560252,41.8
+7,Illinois,4275139,44.9
+7,Indiana,2171348,43.4
+7,Iowa,900643,38.7
+7,Kansas,847365,39.9
+7,Kentucky,1765950,52.8
+7,Louisiana,1771667,51.8
+7,Maine,437122,41.1
+7,Maryland,2002190,43.7
+7,Massachusetts,2574705,48.4
+7,Michigan,4062534,53.3
+7,Minnesota,1882078,44.6
+7,Mississippi,1193740,54.7
+7,Missouri,1980836,42.9
+7,Montana,361511,44
+7,Nebraska,456145,32.3
+7,Nevada,1531230,63.9
+7,New Hampshire,536144,50.1
+7,New Jersey,3632907,54.2
+7,New Mexico,684375,43.1
+7,New York,7586252,51.4
+7,North Carolina,3776077,47.3
+7,North Dakota,245058,44
+7,Ohio,3830861,43.5
+7,Oklahoma,1307159,44.9
+7,Oregon,1411508,42.9
+7,Pennsylvania,4976558,51.2
+7,Rhode Island,407947,50.1
+7,South Carolina,1626464,41
+7,South Dakota,230378,36
+7,Tennessee,2644987,50.8
+7,Texas,10814471,50.9
+7,Utah,966105,42.4
+7,Vermont,248140,51.1
+7,Virginia,2859468,44.6
+7,Washington,2702006,45.9
+7,West Virginia,527566,38.4
+7,Wisconsin,1925290,43.6
+7,Wyoming,152787,35.4
+7,-> Metro Areas,NA,NA
+7,"Atlanta-Sandy Springs-Alpharetta, GA Metro Area",2178224,48.2
+7,"Boston-Cambridge-Newton, MA-NH Metro Area",1851478,48
+7,"Chicago-Naperville-Elgin, IL-IN-WI Metro Area",3531244,49.1
+7,"Dallas-Fort Worth-Arlington, TX Metro Area",3390742,57.8
+7,"Detroit-Warren-Dearborn, MI Metro Area",2166461,58.3
+7,"Houston-The Woodlands-Sugar Land, TX Metro Area",3093338,53.7
+7,"Los Angeles-Long Beach-Anaheim, CA Metro Area",5939728,58.2
+7,"Miami-Fort Lauderdale-Pompano Beach, FL Metro Area",2746682,62.7
+7,"New York-Newark-Jersey City, NY-NJ-PA Metro Area",7847760,54.3
+7,"Philadelphia-Camden-Wilmington, PA-NJ-DE-MD Metro Area",2827278,56.1
+7,"Phoenix-Mesa-Chandler, AZ Metro Area",1741389,45.5
+7,"Riverside-San Bernardino-Ontario, CA Metro Area",2347343,56.3
+7,"San Francisco-Oakland-Berkeley, CA Metro Area",1844426,52.7
+7,"Seattle-Tacoma-Bellevue, WA Metro Area",1374103,47.1
+7,"Washington-Arlington-Alexandria, DC-VA-MD-WV Metro Area",1990638,43.2
+8,Alabama,1511934,40.9
+8,Alaska,248427,47.5
+8,Arizona,2525519,45.4
+8,Arkansas,912177,40.6
+8,California,16184636,54.1
+8,Colorado,2064279,46.6
+8,Connecticut,1343684,49.3
+8,Delaware,300503,40
+8,District of Columbia,196886,36.7
+8,Florida,8596822,50.5
+8,Georgia,4138469,52.2
+8,Hawaii,560701,52.5
+8,Idaho,502696,37.7
+8,Illinois,4310133,45.4
+8,Indiana,2199339,44
+8,Iowa,982563,42.2
+8,Kansas,906614,42.4
+8,Kentucky,1678436,50.3
+8,Louisiana,1840172,53.7
+8,Maine,510395,48
+8,Maryland,2116676,46.4
+8,Massachusetts,2663383,50.2
+8,Michigan,4111883,54
+8,Minnesota,1933034,45.7
+8,Mississippi,1129624,51.7
+8,Missouri,2451663,53.3
+8,Montana,356234,43.4
+8,Nebraska,507086,35.8
+8,Nevada,1454260,60.8
+8,New Hampshire,521034,48.8
+8,New Jersey,3550754,53
+8,New Mexico,665650,42
+8,New York,7980671,54.1
+8,North Carolina,3520230,44.2
+8,North Dakota,240862,43.4
+8,Ohio,3878273,44.4
+8,Oklahoma,1294956,44.4
+8,Oregon,1456984,44.4
+8,Pennsylvania,4814344,49.4
+8,Rhode Island,388797,47.7
+8,South Carolina,1693175,42.8
+8,South Dakota,229336,35.9
+8,Tennessee,2497947,47.9
+8,Texas,11438080,53.7
+8,Utah,995295,43.8
+8,Vermont,245105,50.6
+8,Virginia,2807514,43.4
+8,Washington,2674421,45.5
+8,West Virginia,609216,44.3
+8,Wisconsin,1829981,41.6
+8,Wyoming,164264,38.5
+8,-> Metro Areas,NA,NA
+8,"Atlanta-Sandy Springs-Alpharetta, GA Metro Area",2409033,50.7
+8,"Boston-Cambridge-Newton, MA-NH Metro Area",1762635,47.1
+8,"Chicago-Naperville-Elgin, IL-IN-WI Metro Area",3446326,48
+8,"Dallas-Fort Worth-Arlington, TX Metro Area",2670034,48.9
+8,"Detroit-Warren-Dearborn, MI Metro Area",2260427,58.7
+8,"Houston-The Woodlands-Sugar Land, TX Metro Area",3641199,63.7
+8,"Los Angeles-Long Beach-Anaheim, CA Metro Area",6000960,58.4
+8,"Miami-Fort Lauderdale-Pompano Beach, FL Metro Area",2943609,60.5
+8,"New York-Newark-Jersey City, NY-NJ-PA Metro Area",7990449,58.3
+8,"Philadelphia-Camden-Wilmington, PA-NJ-DE-MD Metro Area",2680878,50.3
+8,"Phoenix-Mesa-Chandler, AZ Metro Area",1923015,48.3
+8,"Riverside-San Bernardino-Ontario, CA Metro Area",2184168,54.7
+8,"San Francisco-Oakland-Berkeley, CA Metro Area",1858057,49.3
+8,"Seattle-Tacoma-Bellevue, WA Metro Area",1394918,44.1
+8,"Washington-Arlington-Alexandria, DC-VA-MD-WV Metro Area",1852368,40.3
+9,Alabama,1789599,48.3
+9,Alaska,240302,45.9
+9,Arizona,2424713,43.5
+9,Arkansas,915556,40.8
+9,California,17155336,57.5
+9,Colorado,2311968,52.2
+9,Connecticut,1439158,52.8
+9,Delaware,324476,43.1
+9,District of Columbia,187613,34.6
+9,Florida,8488331,49.8
+9,Georgia,4090532,51.5
+9,Hawaii,650712,61.6
+9,Idaho,528668,39.4
+9,Illinois,4125258,43.3
+9,Indiana,2406743,48.1
+9,Iowa,911819,39
+9,Kansas,867355,40.7
+9,Kentucky,1496311,44.9
+9,Louisiana,1830336,53.8
+9,Maine,508902,48
+9,Maryland,2336828,51
+9,Massachusetts,2612655,49.3
+9,Michigan,3977977,52.2
+9,Minnesota,1832406,43.4
+9,Mississippi,1032789,47.3
+9,Missouri,2311384,50.4
+9,Montana,346374,42.3
+9,Nebraska,568717,40.1
+9,Nevada,1424719,59.7
+9,New Hampshire,530920,49.6
+9,New Jersey,3544761,53
+9,New Mexico,675910,43
+9,New York,8520617,58.2
+9,North Carolina,3832842,48
+9,North Dakota,200671,36.1
+9,Ohio,3984605,45.5
+9,Oklahoma,1259374,43.3
+9,Oregon,1673363,50.8
+9,Pennsylvania,4877499,50
+9,Rhode Island,403093,49.5
+9,South Carolina,1774463,45.1
+9,South Dakota,270238,42.1
+9,Tennessee,2605244,50.3
+9,Texas,10767993,50.9
+9,Utah,992364,43.7
+9,Vermont,225759,46.6
+9,Virginia,2724857,42.2
+9,Washington,2677224,45.8
+9,West Virginia,575052,41.9
+9,Wisconsin,2155258,48.6
+9,Wyoming,196339,45.6
+9,-> Metro Areas,NA,NA
+9,"Atlanta-Sandy Springs-Alpharetta, GA Metro Area",2512458,56.1
+9,"Boston-Cambridge-Newton, MA-NH Metro Area",1890609,50.7
+9,"Chicago-Naperville-Elgin, IL-IN-WI Metro Area",3211901,45.2
+9,"Dallas-Fort Worth-Arlington, TX Metro Area",2683710,47.9
+9,"Detroit-Warren-Dearborn, MI Metro Area",1955146,52.6
+9,"Houston-The Woodlands-Sugar Land, TX Metro Area",2941151,55.8
+9,"Los Angeles-Long Beach-Anaheim, CA Metro Area",6135376,59.4
+9,"Miami-Fort Lauderdale-Pompano Beach, FL Metro Area",2843048,57.3
+9,"New York-Newark-Jersey City, NY-NJ-PA Metro Area",8189005,59.1
+9,"Philadelphia-Camden-Wilmington, PA-NJ-DE-MD Metro Area",2684501,51.9
+9,"Phoenix-Mesa-Chandler, AZ Metro Area",1798722,45.9
+9,"Riverside-San Bernardino-Ontario, CA Metro Area",2502661,59.7
+9,"San Francisco-Oakland-Berkeley, CA Metro Area",1623787,47
+9,"Seattle-Tacoma-Bellevue, WA Metro Area",1462947,45.8
+9,"Washington-Arlington-Alexandria, DC-VA-MD-WV Metro Area",2137917,45.3
+10,Alabama,1618864,43.8
+10,Alaska,236822,45.2
+10,Arizona,2677233,48.3
+10,Arkansas,1022146,45.9
+10,California,17580900,58.9
+10,Colorado,2072780,46.8
+10,Connecticut,1379934,50.8
+10,Delaware,360472,47.8
+10,District of Columbia,176201,32.8
+10,Florida,8358071,49
+10,Georgia,3923719,49.6
+10,Hawaii,640664,59.8
+10,Idaho,556145,41.7
+10,Illinois,4584313,48.2
+10,Indiana,2381443,47.7
+10,Iowa,913711,39.1
+10,Kansas,914421,42.8
+10,Kentucky,1441986,43.2
+10,Louisiana,1727740,50.5
+10,Maine,477419,45
+10,Maryland,2224659,48.8
+10,Massachusetts,2768890,52.1
+10,Michigan,4168204,54.7
+10,Minnesota,1968243,46.5
+10,Mississippi,1173619,53.9
+10,Missouri,2177043,47.4
+10,Montana,347567,42.4
+10,Nebraska,523823,36.9
+10,Nevada,1453712,60.8
+10,New Hampshire,516863,48.2
+10,New Jersey,3453375,51.4
+10,New Mexico,771269,48.6
+10,New York,8648931,58.7
+10,North Carolina,3412124,42.7
+10,North Dakota,229701,41.1
+10,Ohio,4423432,50.9
+10,Oklahoma,1182230,40.6
+10,Oregon,1634720,49.5
+10,Pennsylvania,4830993,49.6
+10,Rhode Island,482639,59.3
+10,South Carolina,1860000,47
+10,South Dakota,259942,40.7
+10,Tennessee,2383949,45.7
+10,Texas,10648503,50
+10,Utah,1016165,44.7
+10,Vermont,222666,45.9
+10,Virginia,2709190,42.3
+10,Washington,2825915,48.1
+10,West Virginia,670881,48.7
+10,Wisconsin,2062203,46.7
+10,Wyoming,171976,40.2
+10,-> Metro Areas,NA,NA
+10,"Atlanta-Sandy Springs-Alpharetta, GA Metro Area",2283419,51.2
+10,"Boston-Cambridge-Newton, MA-NH Metro Area",2061859,54.8
+10,"Chicago-Naperville-Elgin, IL-IN-WI Metro Area",3741972,52.7
+10,"Dallas-Fort Worth-Arlington, TX Metro Area",3019269,50.3
+10,"Detroit-Warren-Dearborn, MI Metro Area",2251681,59
+10,"Houston-The Woodlands-Sugar Land, TX Metro Area",3397233,60.6
+10,"Los Angeles-Long Beach-Anaheim, CA Metro Area",6166781,64.8
+10,"Miami-Fort Lauderdale-Pompano Beach, FL Metro Area",2599745,56.1
+10,"New York-Newark-Jersey City, NY-NJ-PA Metro Area",7973195,57.3
+10,"Philadelphia-Camden-Wilmington, PA-NJ-DE-MD Metro Area",2569892,50.7
+10,"Phoenix-Mesa-Chandler, AZ Metro Area",1937566,49.4
+10,"Riverside-San Bernardino-Ontario, CA Metro Area",2602657,59
+10,"San Francisco-Oakland-Berkeley, CA Metro Area",1939867,55.3
+10,"Seattle-Tacoma-Bellevue, WA Metro Area",1553167,49.2
+10,"Washington-Arlington-Alexandria, DC-VA-MD-WV Metro Area",2039615,45.7
+11,Alabama,1689166,45.8
+11,Alaska,256356,49.1
+11,Arizona,2841364,51.2
+11,Arkansas,980085,43.8
+11,California,17489568,58.6
+11,Colorado,2104083,47.3
+11,Connecticut,1329415,48.8
+11,Delaware,366233,49.1
+11,District of Columbia,202290,37.3
+11,Florida,8699638,51.2
+11,Georgia,3532408,44.8
+11,Hawaii,594789,55.8
+11,Idaho,567330,42.3
+11,Illinois,4979668,52.5
+11,Indiana,2527838,50.5
+11,Iowa,932859,39.9
+11,Kansas,975587,45.8
+11,Kentucky,1613269,48.4
+11,Louisiana,1865288,54.6
+11,Maine,496415,46.9
+11,Maryland,2232372,49.1
+11,Massachusetts,2707677,51.4
+11,Michigan,4238259,56
+11,Minnesota,2082627,49.3
+11,Mississippi,1227535,56.2
+11,Missouri,2176367,47.3
+11,Montana,418015,50.9
+11,Nebraska,538990,38
+11,Nevada,1567721,65.6
+11,New Hampshire,498741,46.5
+11,New Jersey,3724695,55.4
+11,New Mexico,767252,48.5
+11,New York,8544159,58.1
+11,North Carolina,3659128,45.7
+11,North Dakota,211682,38.1
+11,Ohio,4154700,47.7
+11,Oklahoma,1330910,45.8
+11,Oregon,1721403,52.4
+11,Pennsylvania,4667236,48.1
+11,Rhode Island,434586,54
+11,South Carolina,1810156,45.7
+11,South Dakota,257975,40.3
+11,Tennessee,2346152,45
+11,Texas,11384721,53.5
+11,Utah,925003,40.7
+11,Vermont,232417,48.1
+11,Virginia,2672318,41.4
+11,Washington,2982260,50.9
+11,West Virginia,624229,45.5
+11,Wisconsin,2167178,49.1
+11,Wyoming,204297,47.3
+11,-> Metro Areas,NA,NA
+11,"Atlanta-Sandy Springs-Alpharetta, GA Metro Area",2242745,46
+11,"Boston-Cambridge-Newton, MA-NH Metro Area",1917432,52.1
+11,"Chicago-Naperville-Elgin, IL-IN-WI Metro Area",3909749,57.1
+11,"Dallas-Fort Worth-Arlington, TX Metro Area",3002219,56.3
+11,"Detroit-Warren-Dearborn, MI Metro Area",2173444,60.3
+11,"Houston-The Woodlands-Sugar Land, TX Metro Area",3687668,59.2
+11,"Los Angeles-Long Beach-Anaheim, CA Metro Area",6813877,66
+11,"Miami-Fort Lauderdale-Pompano Beach, FL Metro Area",2560878,56.6
+11,"New York-Newark-Jersey City, NY-NJ-PA Metro Area",8786098,59.6
+11,"Philadelphia-Camden-Wilmington, PA-NJ-DE-MD Metro Area",2418533,49.2
+11,"Phoenix-Mesa-Chandler, AZ Metro Area",2100169,52.3
+11,"Riverside-San Bernardino-Ontario, CA Metro Area",2547701,60.2
+11,"San Francisco-Oakland-Berkeley, CA Metro Area",1767281,50.1
+11,"Seattle-Tacoma-Bellevue, WA Metro Area",1548914,49.9
+11,"Washington-Arlington-Alexandria, DC-VA-MD-WV Metro Area",2007450,44.1
