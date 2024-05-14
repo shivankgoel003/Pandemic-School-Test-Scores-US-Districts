@@ -11,7 +11,7 @@ The replicated raw data could not be added to the `inputs\data` as the files wer
 
 Another dataset that was used from Household Pulse Survey has been added in `inputs\data`. The website can be found at ([Household Pulse Survey](https://www.census.gov/data-tools/demo/hhp/#/?periodSelector=12&measures=JOBLOSS)).
 
-Authors: Navya Gupta, Shivank Goel, Vanshika Vanshika
+Authors: Navya Hooda, Shivank Goel, Vanshika Vanshika
 
 The repo is structured as:
 
